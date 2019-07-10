@@ -73,12 +73,12 @@ class Hexagon: SKSpriteNode {
     
     var gridPosition: CGPoint {
         get {
-            var x = (2 * CGFloat(gridIndex.left) * Hexagon.innerSize.width) + (0.5 * Hexagon.hexagonSize.width)
-            if gridIndex.top % 2 == 1 {
+            var x = (2 * CGFloat(gridIndex.col) * Hexagon.innerSize.width) + (0.5 * Hexagon.hexagonSize.width)
+            if gridIndex.row % 2 == 1 {
                 x += Hexagon.innerSize.width
             }
 
-            let y = (0.5 * CGFloat(gridIndex.top) * Hexagon.innerSize.height) + (0.5 * Hexagon.hexagonSize.height)
+            let y = (0.5 * CGFloat(gridIndex.row) * Hexagon.innerSize.height) + (0.5 * Hexagon.hexagonSize.height)
 
             return CGPoint(x: x, y:y)
         }
@@ -107,8 +107,6 @@ class Hexagon: SKSpriteNode {
         super.init(texture: SKTexture(imageNamed: "hexagonBase"), color: UIColor.clear, size: Hexagon.hexagonSize)
         self.position = gridPosition
         self.zPosition = 0
-        
-        self.draw(recurse: false)
     }
     
     required init(coder aDecoder: NSCoder) {

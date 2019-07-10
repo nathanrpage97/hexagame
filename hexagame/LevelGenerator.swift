@@ -146,14 +146,14 @@ class LevelGenerator {
         var availableHexagonIndecies: [HexagonIndex] = []
         
         for _ in 0..<description.startHexagons {
-            availableHexagonIndecies.append(HexagonIndex(top: rand.nextInt(upperBound: description.size.height), left: rand.nextInt(upperBound: description.size.width)))
+            availableHexagonIndecies.append(HexagonIndex(row: rand.nextInt(upperBound: description.size.height), col: rand.nextInt(upperBound: description.size.width)))
         }
         
         while hexagons.count < description.totalHexagons {
             let newHexagonIndex = availableHexagonIndecies.remove(at: self.rand.nextInt(upperBound: availableHexagonIndecies.count))
             
             // invalid index
-            if newHexagonIndex.left > description.size.width || newHexagonIndex.top > description.size.height || newHexagonIndex.top < 0 || newHexagonIndex.left < 0 {
+            if newHexagonIndex.col > description.size.width || newHexagonIndex.row > description.size.height || newHexagonIndex.row < 0 || newHexagonIndex.col < 0 {
                 continue
             }
             // already exists
@@ -178,15 +178,15 @@ class LevelGenerator {
         var minTop = Int.max, maxTop = Int.min, minLeft = Int.max, maxLeft = Int.min
 
         for hexagonIndex in hexagons.keys {
-            minTop = min(hexagonIndex.top, minTop)
-            maxTop = max(hexagonIndex.top, maxTop)
-            minLeft = min(hexagonIndex.left, minLeft)
-            maxLeft = max(hexagonIndex.left, maxLeft)
+            minTop = min(hexagonIndex.row, minTop)
+            maxTop = max(hexagonIndex.row, maxTop)
+            minLeft = min(hexagonIndex.col, minLeft)
+            maxLeft = max(hexagonIndex.col, maxLeft)
         }
 
         var simplifiedHexagons = [HexagonIndex: Hexagon]()
         for (hexagonIndex, hexagon) in hexagons {
-            let newIndex = HexagonIndex(top: hexagonIndex.top - minTop, left: hexagonIndex.left - minLeft)
+            let newIndex = HexagonIndex(row: hexagonIndex.row - minTop, col: hexagonIndex.col - minLeft)
             hexagon.gridIndex = newIndex
             hexagon.resetGridPosition()
             simplifiedHexagons[newIndex] = hexagon
@@ -204,7 +204,7 @@ class LevelGenerator {
     static func populateGridWithConnections(level: HexagonLevel, description: LevelDescription) {
         var colorConnectionsCreated = 0
         while colorConnectionsCreated < description.connections {
-            if let hexagon = level.getHexagon(index: HexagonIndex(top: self.rand.nextInt(upperBound: Int(level.gridSize.height)), left: self.rand.nextInt(upperBound: Int(level.gridSize.width)))) {
+            if let hexagon = level.getHexagon(index: HexagonIndex(row: self.rand.nextInt(upperBound: Int(level.gridSize.height)), col: self.rand.nextInt(upperBound: Int(level.gridSize.width)))) {
                 let direction = HexagonDirection(rawValue: self.rand.nextInt(upperBound: 6)) ?? HexagonDirection.north
                 if hexagon.getSide(direction: direction).createConnection(connectionColor: HexagonSideColor(rawValue: self.rand.nextInt(upperBound: description.colors) + 1) ?? HexagonSideColor.blue) {
                     colorConnectionsCreated += 1

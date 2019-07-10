@@ -64,31 +64,31 @@ enum HexagonSideColor: Int {
 }
 
 struct HexagonIndex: Hashable, Comparable {
-    var top: Int
-    var left: Int
+    var row: Int
+    var col: Int
     
     func getNeighborIndex(direction: HexagonDirection) -> HexagonIndex {
         switch direction {
         case .north:
-            return HexagonIndex(top: self.top + 2, left: self.left)
+            return HexagonIndex(row: self.row + 2, col: self.col)
         case .northEast:
-            return HexagonIndex(top: self.top + 1, left: self.left + (self.top % 2 == 0 ? 0 : 1))
+            return HexagonIndex(row: self.row + 1, col: self.col + (self.row % 2 == 0 ? 0 : 1))
         case .southEast:
-            return HexagonIndex(top: self.top - 1, left: self.left + (self.top % 2 == 0 ? 0 : 1))
+            return HexagonIndex(row: self.row - 1, col: self.col + (self.row % 2 == 0 ? 0 : 1))
         case .south:
-            return HexagonIndex(top: self.top - 2, left: self.left)
+            return HexagonIndex(row: self.row - 2, col: self.col)
         case .southWest:
-            return HexagonIndex(top: self.top - 1, left: self.left + (self.top % 2 == 0 ? -1 : 0))
+            return HexagonIndex(row: self.row - 1, col: self.col + (self.row % 2 == 0 ? -1 : 0))
         case .northWest:
-            return HexagonIndex(top: self.top + 1, left: self.left + (self.top % 2 == 0 ? -1 : 0))
+            return HexagonIndex(row: self.row + 1, col: self.col + (self.row % 2 == 0 ? -1 : 0))
         }
     }
     
     static func == (lhs: HexagonIndex, rhs: HexagonIndex) -> Bool {
-        return lhs.top == rhs.top && lhs.left == rhs.left
+        return lhs.row == rhs.row && lhs.col == rhs.col
     }
     
     static func < (lhs: HexagonIndex, rhs: HexagonIndex) -> Bool {
-        return lhs.top < rhs.top || (lhs.top == rhs.top && lhs.left < rhs.left)
+        return lhs.row < rhs.row || (lhs.row == rhs.row && lhs.col < rhs.col)
     }
 }
