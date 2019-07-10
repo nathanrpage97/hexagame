@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D861413722D228F9008CF711 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413622D228F9008CF711 /* AppDelegate.swift */; };
+		D861413D22D228F9008CF711 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413C22D228F9008CF711 /* GameScene.swift */; };
+		D861413F22D228F9008CF711 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413E22D228F9008CF711 /* GameViewController.swift */; };
+		D861414222D228F9008CF711 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D861414022D228F9008CF711 /* Main.storyboard */; };
+		D861414422D228FD008CF711 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D861414322D228FD008CF711 /* Assets.xcassets */; };
+		D861414722D228FD008CF711 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D861414522D228FD008CF711 /* LaunchScreen.storyboard */; };
+		D861415222D228FD008CF711 /* hexagameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861415122D228FD008CF711 /* hexagameTests.swift */; };
+		D861415D22D228FD008CF711 /* hexagameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861415C22D228FD008CF711 /* hexagameUITests.swift */; };
+		D861416B22D22B3D008CF711 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861416A22D22B3D008CF711 /* Hexagon.swift */; };
+		D861416D22D23C76008CF711 /* hexagonBase.png in Resources */ = {isa = PBXBuildFile; fileRef = D861416C22D23C75008CF711 /* hexagonBase.png */; };
+		D861416F22D27791008CF711 /* HexagonSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861416E22D27791008CF711 /* HexagonSide.swift */; };
+		D861417122D277B4008CF711 /* HexagonStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417022D277B4008CF711 /* HexagonStructs.swift */; };
+		D861417322D2788E008CF711 /* HexagonLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417222D2788E008CF711 /* HexagonLevel.swift */; };
+		D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417422D284BC008CF711 /* LevelGenerator.swift */; };
+		D861417722D2B19B008CF711 /* HexagonDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417622D2B19B008CF711 /* HexagonDrawer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D861414E22D228FD008CF711 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D861412B22D228F9008CF711 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D861413222D228F9008CF711;
+			remoteInfo = hexagame;
+		};
+		D861415922D228FD008CF711 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D861412B22D228F9008CF711 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D861413222D228F9008CF711;
+			remoteInfo = hexagame;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D861413322D228F9008CF711 /* hexagame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hexagame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D861413622D228F9008CF711 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D861413C22D228F9008CF711 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		D861413E22D228F9008CF711 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D861414122D228F9008CF711 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D861414322D228FD008CF711 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D861414622D228FD008CF711 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D861414822D228FD008CF711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D861414D22D228FD008CF711 /* hexagameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hexagameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D861415122D228FD008CF711 /* hexagameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexagameTests.swift; sourceTree = "<group>"; };
+		D861415322D228FD008CF711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D861415822D228FD008CF711 /* hexagameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hexagameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D861415C22D228FD008CF711 /* hexagameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexagameUITests.swift; sourceTree = "<group>"; };
+		D861415E22D228FD008CF711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D861416A22D22B3D008CF711 /* Hexagon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
+		D861416C22D23C75008CF711 /* hexagonBase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hexagonBase.png; sourceTree = SOURCE_ROOT; };
+		D861416E22D27791008CF711 /* HexagonSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonSide.swift; sourceTree = "<group>"; };
+		D861417022D277B4008CF711 /* HexagonStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonStructs.swift; sourceTree = "<group>"; };
+		D861417222D2788E008CF711 /* HexagonLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonLevel.swift; sourceTree = "<group>"; };
+		D861417422D284BC008CF711 /* LevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelGenerator.swift; sourceTree = "<group>"; };
+		D861417622D2B19B008CF711 /* HexagonDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonDrawer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D861413022D228F9008CF711 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D861414A22D228FD008CF711 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D861415522D228FD008CF711 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D861412A22D228F9008CF711 = {
+			isa = PBXGroup;
+			children = (
+				D861413522D228F9008CF711 /* hexagame */,
+				D861415022D228FD008CF711 /* hexagameTests */,
+				D861415B22D228FD008CF711 /* hexagameUITests */,
+				D861413422D228F9008CF711 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D861413422D228F9008CF711 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D861413322D228F9008CF711 /* hexagame.app */,
+				D861414D22D228FD008CF711 /* hexagameTests.xctest */,
+				D861415822D228FD008CF711 /* hexagameUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D861413522D228F9008CF711 /* hexagame */ = {
+			isa = PBXGroup;
+			children = (
+				D861416C22D23C75008CF711 /* hexagonBase.png */,
+				D861413622D228F9008CF711 /* AppDelegate.swift */,
+				D861413C22D228F9008CF711 /* GameScene.swift */,
+				D861413E22D228F9008CF711 /* GameViewController.swift */,
+				D861414022D228F9008CF711 /* Main.storyboard */,
+				D861414322D228FD008CF711 /* Assets.xcassets */,
+				D861414522D228FD008CF711 /* LaunchScreen.storyboard */,
+				D861414822D228FD008CF711 /* Info.plist */,
+				D861416A22D22B3D008CF711 /* Hexagon.swift */,
+				D861416E22D27791008CF711 /* HexagonSide.swift */,
+				D861417022D277B4008CF711 /* HexagonStructs.swift */,
+				D861417222D2788E008CF711 /* HexagonLevel.swift */,
+				D861417422D284BC008CF711 /* LevelGenerator.swift */,
+				D861417622D2B19B008CF711 /* HexagonDrawer.swift */,
+			);
+			path = hexagame;
+			sourceTree = "<group>";
+		};
+		D861415022D228FD008CF711 /* hexagameTests */ = {
+			isa = PBXGroup;
+			children = (
+				D861415122D228FD008CF711 /* hexagameTests.swift */,
+				D861415322D228FD008CF711 /* Info.plist */,
+			);
+			path = hexagameTests;
+			sourceTree = "<group>";
+		};
+		D861415B22D228FD008CF711 /* hexagameUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D861415C22D228FD008CF711 /* hexagameUITests.swift */,
+				D861415E22D228FD008CF711 /* Info.plist */,
+			);
+			path = hexagameUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D861413222D228F9008CF711 /* hexagame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D861416122D228FD008CF711 /* Build configuration list for PBXNativeTarget "hexagame" */;
+			buildPhases = (
+				D861412F22D228F9008CF711 /* Sources */,
+				D861413022D228F9008CF711 /* Frameworks */,
+				D861413122D228F9008CF711 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hexagame;
+			productName = hexagame;
+			productReference = D861413322D228F9008CF711 /* hexagame.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D861414C22D228FD008CF711 /* hexagameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D861416422D228FD008CF711 /* Build configuration list for PBXNativeTarget "hexagameTests" */;
+			buildPhases = (
+				D861414922D228FD008CF711 /* Sources */,
+				D861414A22D228FD008CF711 /* Frameworks */,
+				D861414B22D228FD008CF711 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D861414F22D228FD008CF711 /* PBXTargetDependency */,
+			);
+			name = hexagameTests;
+			productName = hexagameTests;
+			productReference = D861414D22D228FD008CF711 /* hexagameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D861415722D228FD008CF711 /* hexagameUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D861416722D228FD008CF711 /* Build configuration list for PBXNativeTarget "hexagameUITests" */;
+			buildPhases = (
+				D861415422D228FD008CF711 /* Sources */,
+				D861415522D228FD008CF711 /* Frameworks */,
+				D861415622D228FD008CF711 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D861415A22D228FD008CF711 /* PBXTargetDependency */,
+			);
+			name = hexagameUITests;
+			productName = hexagameUITests;
+			productReference = D861415822D228FD008CF711 /* hexagameUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D861412B22D228F9008CF711 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = Nathan;
+				TargetAttributes = {
+					D861413222D228F9008CF711 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					D861414C22D228FD008CF711 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = D861413222D228F9008CF711;
+					};
+					D861415722D228FD008CF711 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = D861413222D228F9008CF711;
+					};
+				};
+			};
+			buildConfigurationList = D861412E22D228F9008CF711 /* Build configuration list for PBXProject "hexagame" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D861412A22D228F9008CF711;
+			productRefGroup = D861413422D228F9008CF711 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D861413222D228F9008CF711 /* hexagame */,
+				D861414C22D228FD008CF711 /* hexagameTests */,
+				D861415722D228FD008CF711 /* hexagameUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D861413122D228F9008CF711 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D861414222D228F9008CF711 /* Main.storyboard in Resources */,
+				D861414422D228FD008CF711 /* Assets.xcassets in Resources */,
+				D861414722D228FD008CF711 /* LaunchScreen.storyboard in Resources */,
+				D861416D22D23C76008CF711 /* hexagonBase.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D861414B22D228FD008CF711 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D861415622D228FD008CF711 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D861412F22D228F9008CF711 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D861413D22D228F9008CF711 /* GameScene.swift in Sources */,
+				D861413F22D228F9008CF711 /* GameViewController.swift in Sources */,
+				D861416B22D22B3D008CF711 /* Hexagon.swift in Sources */,
+				D861417722D2B19B008CF711 /* HexagonDrawer.swift in Sources */,
+				D861416F22D27791008CF711 /* HexagonSide.swift in Sources */,
+				D861413722D228F9008CF711 /* AppDelegate.swift in Sources */,
+				D861417122D277B4008CF711 /* HexagonStructs.swift in Sources */,
+				D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */,
+				D861417322D2788E008CF711 /* HexagonLevel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D861414922D228FD008CF711 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D861415222D228FD008CF711 /* hexagameTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D861415422D228FD008CF711 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D861415D22D228FD008CF711 /* hexagameUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D861414F22D228FD008CF711 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D861413222D228F9008CF711 /* hexagame */;
+			targetProxy = D861414E22D228FD008CF711 /* PBXContainerItemProxy */;
+		};
+		D861415A22D228FD008CF711 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D861413222D228F9008CF711 /* hexagame */;
+			targetProxy = D861415922D228FD008CF711 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D861414022D228F9008CF711 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D861414122D228F9008CF711 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D861414522D228FD008CF711 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D861414622D228FD008CF711 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D861415F22D228FD008CF711 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D861416022D228FD008CF711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D861416222D228FD008CF711 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WBL5C3Q9DS;
+				INFOPLIST_FILE = hexagame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D861416322D228FD008CF711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WBL5C3Q9DS;
+				INFOPLIST_FILE = hexagame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D861416522D228FD008CF711 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WBL5C3Q9DS;
+				INFOPLIST_FILE = hexagameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hexagame.app/hexagame";
+			};
+			name = Debug;
+		};
+		D861416622D228FD008CF711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WBL5C3Q9DS;
+				INFOPLIST_FILE = hexagameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hexagame.app/hexagame";
+			};
+			name = Release;
+		};
+		D861416822D228FD008CF711 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WBL5C3Q9DS;
+				INFOPLIST_FILE = hexagameUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagameUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = hexagame;
+			};
+			name = Debug;
+		};
+		D861416922D228FD008CF711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WBL5C3Q9DS;
+				INFOPLIST_FILE = hexagameUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagameUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = hexagame;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D861412E22D228F9008CF711 /* Build configuration list for PBXProject "hexagame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D861415F22D228FD008CF711 /* Debug */,
+				D861416022D228FD008CF711 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D861416122D228FD008CF711 /* Build configuration list for PBXNativeTarget "hexagame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D861416222D228FD008CF711 /* Debug */,
+				D861416322D228FD008CF711 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D861416422D228FD008CF711 /* Build configuration list for PBXNativeTarget "hexagameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D861416522D228FD008CF711 /* Debug */,
+				D861416622D228FD008CF711 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D861416722D228FD008CF711 /* Build configuration list for PBXNativeTarget "hexagameUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D861416822D228FD008CF711 /* Debug */,
+				D861416922D228FD008CF711 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D861412B22D228F9008CF711 /* Project object */;
+}
