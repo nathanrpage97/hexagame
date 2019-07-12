@@ -68,8 +68,8 @@ class GameScene: SKScene {
         }
 
         // upper bound the zoom
-        if hexagonLevelHeight / (camera.yScale * hexagonLevel.gridSize.height) > 300 || hexagonLevelWidth / (camera.xScale * hexagonLevel.gridSize.width) > 400 {
-            let newScale = max(hexagonLevelHeight / (300*hexagonLevel.gridSize.height), hexagonLevelWidth / ( 400 * hexagonLevel.gridSize.width))
+        if hexagonLevelHeight / (camera.yScale * hexagonLevel.gridSize.height) > 600 || hexagonLevelWidth / (camera.xScale * hexagonLevel.gridSize.width) > 800 {
+            let newScale = max(hexagonLevelHeight / (600*hexagonLevel.gridSize.height), hexagonLevelWidth / ( 800 * hexagonLevel.gridSize.width))
             camera.xScale = newScale
             camera.yScale = newScale
             viewWidth = self.frame.size.width * camera.xScale * 0.8

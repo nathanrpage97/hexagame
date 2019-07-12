@@ -32,9 +32,9 @@ class HexagonDrawer {
             ctx.draw(connections, in: CGRect(origin: .zero, size: self.size))
             
         } else {
-            ctx.draw(self.movableBackground, in: CGRect(origin: .zero, size: self.size))
+            ctx.draw(self.immovableBackground, in: CGRect(origin: .zero, size: self.size))
             ctx.draw(trianglePattern, in: CGRect(origin: .zero, size: self.size))
-            ctx.draw(self.movableOutline, in: CGRect(origin: .zero, size: self.size))
+            ctx.draw(self.immovableOutline, in: CGRect(origin: .zero, size: self.size))
             ctx.draw(connections, in: CGRect(origin: .zero, size: self.size))
         }
         
@@ -86,34 +86,8 @@ class HexagonDrawer {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         let ctx = UIGraphicsGetCurrentContext()!
         
-        // set the 3 dividing lines to create the six triangle
-        var path = CGMutablePath()
-        path.move(to: CGPoint(x: 32, y: 4))
-        path.addLine(to: CGPoint(x: 88, y: 100))
-        
-        path.move(to: CGPoint(x: 88, y: 4))
-        path.addLine(to: CGPoint(x: 32, y: 100))
-        
-        path.move(to: CGPoint(x: 4, y: 52))
-        path.addLine(to: CGPoint(x: 116, y: 52))
-        path.closeSubpath()
-        
-        // draw the dividers
-        ctx.setLineWidth(CGFloat(4)) // TODO: Determine if to switch to 2px for more distinction between hexagons
-        ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
-        ctx.setLineCap(.round)
-        ctx.addPath(path)
-        ctx.strokePath()
-        
-        // movable hexagons have inner circle
-        if movable {
-            ctx.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
-            ctx.fillEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
-            ctx.strokeEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
-        }
-        
         // draw the outer hexagon line
-        path = CGMutablePath()
+        let path = CGMutablePath()
         path.move(to: CGPoint(x: 30, y: 104))
         path.addLine(to: CGPoint(x: 0, y: 52))
         path.addLine(to: CGPoint(x: 30, y: 0))
@@ -185,12 +159,6 @@ class HexagonDrawer {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         let ctx = UIGraphicsGetCurrentContext()!
         
-        // if dragging no connections should be made
-        if hexagon.isDragging {
-            let image = ctx.makeImage()!
-            UIGraphicsEndImageContext()
-            return image
-        }
         
         // flip vertically so image correctly renders triangle pattern in correct direction
         let flipVertical = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: self.size.height)
@@ -201,55 +169,103 @@ class HexagonDrawer {
         ctx.rotate(by: -CGFloat.pi/3)
         ctx.translateBy(x: -60, y: -52)
         
+        if !hexagon.isDragging {
+            // draw the connecting areas
+            for side in hexagon.sides {
+                if side.isConnected {
+                    // opposite sides are what need to align correctly. Seems to be some issue with rotation accuaracy?
+                    if side.direction == .northEast || side.direction == .southWest {
+                        let path = CGMutablePath()
+                        path.move(to: CGPoint(x: 88, y: 8))
+                        path.addLine(to: CGPoint(x: 90.4, y: 4))
+                        path.addLine(to: CGPoint(x: 93.4, y: 4))
+                        path.addLine(to: CGPoint(x: 118.862, y: 45.403))
+                        path.addLine(to: CGPoint(x: 116.2, y: 50))
+                        path.addLine(to: CGPoint(x: 112.019, y: 50))
+                        path.closeSubpath()
+                        ctx.setFillColor(HexagonSideColor.uiColor(color: side.connectionColor).cgColor)
+                        ctx.addPath(path)
+                        ctx.fillPath()
+                    } else if side.direction == .southEast || side.direction == .northWest {
+                        let path = CGMutablePath()
+                        path.move(to: CGPoint(x: 88.759, y: 6.25))
+                        //path.addLine(to: CGPoint(x: 92.438, y: 4))
+                        path.addLine(to: CGPoint(x: 90.0, y: 4.2))
+                        path.addLine(to: CGPoint(x: 92.9, y: 4.2))
+                        //path.addLine(to: CGPoint(x: 117.641, y: 47.7))
+                        path.addLine(to: CGPoint(x: 117.862, y: 47.593))
+                        path.addLine(to: CGPoint(x: 116.7, y: 49.8))
+                        path.addLine(to: CGPoint(x: 113.019, y: 49.8))
+                        path.closeSubpath()
+                        ctx.setFillColor(HexagonSideColor.uiColor(color: side.connectionColor).cgColor)
+                        ctx.addPath(path)
+                        ctx.fillPath()
+                    } else if side.direction == .north || side.direction == .south {
+                        let path = CGMutablePath()
+                        path.move(to: CGPoint(x: 88.689, y: 5.8))
+                        //path.addLine(to: CGPoint(x: 92.438, y: 4))
+                        path.addLine(to: CGPoint(x: 89.83, y: 3.8))
+                        path.addLine(to: CGPoint(x: 92.4, y: 3.8))
+                        //path.addLine(to: CGPoint(x: 117.641, y: 47.7))
+                        path.addLine(to: CGPoint(x: 118.262, y: 47.693))
+                        path.addLine(to: CGPoint(x: 116.7, y: 50.2))
+                        path.addLine(to: CGPoint(x: 114.019, y: 50.2))
+                        path.closeSubpath()
+                        ctx.setFillColor(HexagonSideColor.uiColor(color: side.connectionColor).cgColor)
+                        ctx.addPath(path)
+                        ctx.fillPath()
+                    }
+                }
+                ctx.translateBy(x: 60, y: 52)
+                ctx.rotate(by: CGFloat.pi/3)
+                ctx.translateBy(x: -60, y: -52)
+            }
+        }
+        
+        // draw the outer hexagon line
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: 30, y: 104))
+        path.addLine(to: CGPoint(x: 0, y: 52))
+        path.addLine(to: CGPoint(x: 30, y: 0))
+        path.addLine(to: CGPoint(x: 90, y: 0))
+        path.addLine(to: CGPoint(x: 120, y: 52))
+        path.addLine(to: CGPoint(x: 90, y: 104))
+        path.closeSubpath()
+        ctx.addPath(path)
+        ctx.clip() // used so that the hexagon
+        
+        var prev_side = hexagon.northWest
         // draw the connecting areas
         for side in hexagon.sides {
-            if side.isConnected {
-                // opposite sides are what need to align correctly. Seems to be some issue with rotation accuaracy?
-                if side.direction == .northEast || side.direction == .southWest {
-                    let path = CGMutablePath()
-                    path.move(to: CGPoint(x: 88, y: 8))
-                    path.addLine(to: CGPoint(x: 90.4, y: 4))
-                    path.addLine(to: CGPoint(x: 93.4, y: 4))
-                    path.addLine(to: CGPoint(x: 118.862, y: 45.403))
-                    path.addLine(to: CGPoint(x: 116.2, y: 50))
-                    path.addLine(to: CGPoint(x: 112.019, y: 50))
-                    path.closeSubpath()
-                    ctx.setFillColor(HexagonSideColor.uiColor(color: side.connectionColor).cgColor)
-                    ctx.addPath(path)
-                    ctx.fillPath()
-                } else if side.direction == .southEast || side.direction == .northWest {
-                    let path = CGMutablePath()
-                    path.move(to: CGPoint(x: 88.759, y: 6.25))
-                    //path.addLine(to: CGPoint(x: 92.438, y: 4))
-                    path.addLine(to: CGPoint(x: 90.0, y: 4.2))
-                    path.addLine(to: CGPoint(x: 92.9, y: 4.2))
-                    //path.addLine(to: CGPoint(x: 117.641, y: 47.7))
-                    path.addLine(to: CGPoint(x: 117.862, y: 47.593))
-                    path.addLine(to: CGPoint(x: 116.7, y: 49.8))
-                    path.addLine(to: CGPoint(x: 113.019, y: 49.8))
-                    path.closeSubpath()
-                    ctx.setFillColor(HexagonSideColor.uiColor(color: side.connectionColor).cgColor)
-                    ctx.addPath(path)
-                    ctx.fillPath()
-                } else if side.direction == .north || side.direction == .south {
-                    let path = CGMutablePath()
-                    path.move(to: CGPoint(x: 88.689, y: 5.8))
-                    //path.addLine(to: CGPoint(x: 92.438, y: 4))
-                    path.addLine(to: CGPoint(x: 89.83, y: 3.8))
-                    path.addLine(to: CGPoint(x: 92.4, y: 3.8))
-                    //path.addLine(to: CGPoint(x: 117.641, y: 47.7))
-                    path.addLine(to: CGPoint(x: 118.262, y: 47.693))
-                    path.addLine(to: CGPoint(x: 116.7, y: 50.2))
-                    path.addLine(to: CGPoint(x: 114.019, y: 50.2))
-                    path.closeSubpath()
-                    ctx.setFillColor(HexagonSideColor.uiColor(color: side.connectionColor).cgColor)
-                    ctx.addPath(path)
-                    ctx.fillPath()
-                }
+            if prev_side.isConnectable || side.isConnectable {
+                let path = CGMutablePath()
+                path.move(to: CGPoint(x: 60, y: 52))
+                path.addLine(to: CGPoint(x: 90, y: 0))
+                ctx.addPath(path)
+                ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+                ctx.setLineWidth(CGFloat(4))
+                ctx.setLineCap(.round)
+                ctx.strokePath()
             }
+            prev_side = side
             ctx.translateBy(x: 60, y: 52)
             ctx.rotate(by: CGFloat.pi/3)
             ctx.translateBy(x: -60, y: -52)
+        }
+        
+        // movable hexagons have inner circle
+        if hexagon.isMovable {
+            ctx.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
+            ctx.fillEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
+            ctx.setLineWidth(CGFloat(4))
+            ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+            ctx.strokeEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
+        } else {
+            ctx.setFillColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+            ctx.fillEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
+            ctx.setLineWidth(CGFloat(4))
+            ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+            ctx.strokeEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
         }
         
         let image = ctx.makeImage()!
