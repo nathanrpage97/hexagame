@@ -22,6 +22,21 @@ struct LevelDescription {
     var colors: Int
     var connections: Int
     var startHexagons: Int
+    
+    init(rng: GKRandomSource, meta: MetaLevel) {
+        // helper variables from rng
+        let gridWidth = rng.nextInt(upperBound: meta.sizes.width.upperBound - meta.sizes.width.lowerBound + 1) + meta.sizes.width.lowerBound
+        let gridHeight = rng.nextInt(upperBound: meta.sizes.height.upperBound - meta.sizes.height.lowerBound + 1) + meta.sizes.height.lowerBound
+        let hexagonDensity = Double(rng.nextUniform()) * (meta.hexagonDensity.upperBound - meta.hexagonDensity.lowerBound) + meta.hexagonDensity.lowerBound
+        let connectionDensity = Double(rng.nextUniform()) * (meta.colorDensity.upperBound - meta.colorDensity.lowerBound) + meta.colorDensity.lowerBound
+        
+        self.size = (width: gridWidth, height: gridHeight)
+        self.totalHexagons = Int(Double(gridWidth * gridHeight) * hexagonDensity)
+        self.colors = rng.nextInt(upperBound: meta.colors.upperBound - meta.colors.lowerBound + 1) + meta.colors.lowerBound
+        self.connections = Int(connectionDensity * Double(totalHexagons))
+        self.startHexagons = rng.nextInt(upperBound: meta.startHexagons.upperBound - meta.startHexagons.lowerBound + 1) + meta.startHexagons.lowerBound
+
+    }
 }
 
 let metas = [
@@ -107,32 +122,21 @@ let metas = [
     ),
 ]
 
+/// Creates
 class LevelGenerator {
     static var rand = GKLinearCongruentialRandomSource.init(seed: 0)
+
     static func create(seed: UInt64, dificulty: Int) -> HexagonLevel {
         self.rand = GKLinearCongruentialRandomSource.init(seed: seed)
         
         let meta = metas[dificulty]
-        
-        //let startIndecies = self.rand.nextInt(upperBound: max(1, dificulty - 2)) + 1
-        let gridWidth = rand.nextInt(upperBound: meta.sizes.width.upperBound - meta.sizes.width.lowerBound + 1) + meta.sizes.width.lowerBound
-        let gridHeight = rand.nextInt(upperBound: meta.sizes.height.upperBound - meta.sizes.height.lowerBound + 1) + meta.sizes.height.lowerBound
-        let hexagonDensity = Double(rand.nextUniform()) * (meta.hexagonDensity.upperBound - meta.hexagonDensity.lowerBound) + meta.hexagonDensity.lowerBound
-        let totalHexagons = Int(Double(gridWidth * gridHeight) * hexagonDensity)
-        let connectionDensity = Double(rand.nextUniform()) * (meta.colorDensity.upperBound - meta.colorDensity.lowerBound) + meta.colorDensity.lowerBound
-        let description = LevelDescription(
-            size: (width: gridWidth, height: gridHeight),
-            totalHexagons: totalHexagons,
-            colors: rand.nextInt(upperBound: meta.colors.upperBound - meta.colors.lowerBound + 1) + meta.colors.lowerBound,
-            connections: Int(connectionDensity * Double(totalHexagons)),
-            startHexagons: rand.nextInt(upperBound: meta.startHexagons.upperBound - meta.startHexagons.lowerBound + 1) + meta.startHexagons.lowerBound
-        )
+        let description = LevelDescription(rng: self.rand, meta: meta)
 
         // generates the grid
-        var level = generateLevelHexagons(description: description)
+        let level = generateLevelHexagons(description: description)
         
         populateGridWithConnections(level: level, description: description)
-        // level = self.scrambleLevel(level: level)
+        scrambleLevel(level: level)
         
         for hexagon in level.hexagons.values {
             hexagon.draw(recurse: false)
@@ -197,8 +201,9 @@ class LevelGenerator {
                 side.bindNeighbors(parentHexagon: hexagon, otherHexagon: simplifiedHexagons[hexagon.gridIndex.getNeighborIndex(direction: side.direction)])
             })
         }
+        
+        
         return HexagonLevel(hexagons: simplifiedHexagons, gridSize: CGSize(width: maxLeft - minLeft + 1, height: maxTop - minTop + 1))
-        //return HexagonLevel(hexagons: hexagons, gridSize: CGSize(width: description.size.width, height: description.size.height))
     }
     
     static func populateGridWithConnections(level: HexagonLevel, description: LevelDescription) {
@@ -214,7 +219,7 @@ class LevelGenerator {
         }
     }
     // scrambling doesn't use the seed to make it more interesting
-    static func scrambleLevel(level: HexagonLevel) -> HexagonLevel {
+    static func scrambleLevel(level: HexagonLevel) {
         // get hexagons in order of index
         for hexagon in level.hexagons.values.sorted(by: {(hexagon1, hexagon2) in hexagon1.gridIndex < hexagon2.gridIndex}) {
             if !hexagon.isMovable {
@@ -230,7 +235,5 @@ class LevelGenerator {
                 hexagon.switchColors(hexagon: newHexagon, redraw: false)
             }
         }
-        
-        return level
     }
 }

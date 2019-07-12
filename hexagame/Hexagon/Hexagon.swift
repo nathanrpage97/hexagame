@@ -7,28 +7,6 @@
 //
 import SpriteKit
 
-class HexagonPlaceHolder: SKSpriteNode {
-    init() {
-        super.init(texture: SKTexture(imageNamed: "hexagonBase"), color: UIColor.clear, size: Hexagon.hexagonSize)
-        self.zPosition = 0
-        self.isHidden = true
-        self.alpha = 0.6
-        self.zPosition = -1
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func show(hexagon: Hexagon) {
-        self.position = hexagon.gridPosition
-        self.isHidden = false
-    }
-    
-    func hide() {
-        self.isHidden = true
-    }
-}
 
 class Hexagon: SKSpriteNode {
     
@@ -136,9 +114,7 @@ class Hexagon: SKSpriteNode {
     }
     
     func draw(recurse: Bool, lazy: Bool = false) {
-        if let hexagonImage = drawHexagon(hexagon: self) {
-            self.texture = SKTexture(cgImage: hexagonImage)
-        }
+        self.texture = SKTexture(cgImage: HexagonDrawer.draw(hexagon: self))
         if recurse {
             for side in self.sides {
                 if !lazy || side.isConnected {
@@ -150,10 +126,12 @@ class Hexagon: SKSpriteNode {
     
     func startDragging() {
         isDragging = true
+        zPosition = 100
         draw(recurse: true, lazy: true)
     }
     func stopDragging() {
         isDragging = false
+        zPosition = 0
         draw(recurse: true, lazy: true)
     }
 }

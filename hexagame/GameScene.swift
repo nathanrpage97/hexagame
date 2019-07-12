@@ -19,8 +19,8 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.backgroundColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1)
-        let dificulty = 9
-        let seed: UInt64 = 9
+        let dificulty = 4
+        let seed: UInt64 = 123
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
@@ -31,20 +31,23 @@ class GameScene: SKScene {
         let hexagonLevel = LevelGenerator.create(seed: seed, dificulty: dificulty)
         self.addChild(hexagonLevel)
         self.hexagonLevel = hexagonLevel
-
-        // get the scene size as scaled by `scaleMode = .AspectFill`
+        
+        // add pan gesture handler
         pan.addTarget(self, action: #selector(panAction(_:)))
         self.view?.addGestureRecognizer(pan)
         pan.maximumNumberOfTouches = 1
         
+        // add pinch gesture handler
         pinch.addTarget(self, action: #selector(pinchAction(_:)))
         self.view?.addGestureRecognizer(pinch)
         
+        // constrain the camera
         setCameraConstraints()
     }
     
     
     func setCameraConstraints() {
+        // require camera and hexagon level exist to create constraints upon
         guard let camera = camera, let hexagonLevel = hexagonLevel else {
             return
         }
@@ -82,77 +85,72 @@ class GameScene: SKScene {
     }
     
     @objc func panAction(_ recognizer: UIPanGestureRecognizer) {
+        // pan action required when level and camera exists
+        guard let hexagonLevel = hexagonLevel, let camera = self.camera else {
+            return
+        }
         // started to pan (check if dragging a node)
         if recognizer.state == .began {
             let touchLocation = self.convertPoint(fromView: recognizer.location(in: self.view))
             // check if dragging a node
-            if let hexagonLevel = hexagonLevel {
-                let location = self.convert(touchLocation, to: hexagonLevel)
-                let touchedNodes = hexagonLevel.nodes(at: location)
-                for node in touchedNodes.reversed() {
-                    if let hexagon = node as? Hexagon {
-                        if !hexagon.isTouching(location: self.convert(touchLocation, to: hexagon)) {
-                            continue
-                        }
-                        if !hexagon.isMovable {
-                            continue
-                        }
-                        draggingHexagon = hexagon
-                        hexagon.startDragging()
-                        draggingHexagon?.zPosition = 100
-                        hexagonLevel.placeHolderHexagon.show(hexagon: hexagon)
-                        return
+            let location = self.convert(touchLocation, to: hexagonLevel)
+            let touchedNodes = hexagonLevel.nodes(at: location)
+            for node in touchedNodes.reversed() {
+                if let hexagon = node as? Hexagon {
+                    if !hexagon.isTouching(location: self.convert(touchLocation, to: hexagon)) {
+                        continue
                     }
+                    if !hexagon.isMovable {
+                        continue
+                    }
+                    draggingHexagon = hexagon
+                    hexagon.startDragging()
+                    hexagonLevel.placeHolderHexagon.show(position: hexagon.gridPosition)
+                    return
                 }
             }
         }
         else if recognizer.state == .changed {
             
             let translation = recognizer.translation(in: recognizer.view)
+            // clear translation
+            recognizer.setTranslation(.zero, in: recognizer.view)
             
-            if let camera = self.camera {
-                // clear translation
-                recognizer.setTranslation(.zero, in: recognizer.view)
-                
-                if let hexagon = self.draggingHexagon {
-                    hexagon.position.x += translation.x * camera.xScale
-                    hexagon.position.y -= translation.y * camera.yScale
-                } else  {
-                    camera.position.x -= translation.x  * camera.xScale
-                    camera.position.y += translation.y  * camera.yScale
-                }
+            if let hexagon = self.draggingHexagon {
+                hexagon.position.x += translation.x * camera.xScale
+                hexagon.position.y -= translation.y * camera.yScale
+            } else  {
+                camera.position.x -= translation.x  * camera.xScale
+                camera.position.y += translation.y  * camera.yScale
             }
         }
         else if recognizer.state == .ended || recognizer.state == .cancelled {
+            guard let draggingHexagon = draggingHexagon else {
+                return
+            }
+            
             let touchLocation = self.convertPoint(fromView: recognizer.location(in: recognizer.view))
             // check if dragging a node
-            if let hexagonLevel = hexagonLevel, let draggingHexagon = draggingHexagon {
-                let location = self.convert(touchLocation, to: hexagonLevel)
-                let touchedNodes = hexagonLevel.nodes(at: location)
-                var found = false
-                for node in touchedNodes.reversed() {
-                    if let hexagon = node as? Hexagon {
-                        if !hexagon.isTouching(location: self.convert(touchLocation, to: hexagon)) {
-                            continue
-                        }
-                        if hexagon == draggingHexagon {
-                            continue
-                        }
+            let location = self.convert(touchLocation, to: hexagonLevel)
+            let touchedNodes = hexagonLevel.nodes(at: location)
+            var found = false
+            for node in touchedNodes.reversed() {
+                if let hexagon = node as? Hexagon {
+                    if hexagon != draggingHexagon && hexagon.isTouching(location: self.convert(touchLocation, to: hexagon)) {
                         hexagonLevel.switchHexagons(srcHexagon: draggingHexagon, destinationHexagon: hexagon)
                         found = true
                         break
                     }
                 }
-                draggingHexagon.stopDragging()
-                draggingHexagon.resetGridPosition()
-                draggingHexagon.zPosition = 0
-                hexagonLevel.placeHolderHexagon.hide()
-                if found {
-                    print("Is complete \(hexagonLevel.isFinished)")
-                }
+            }
+            draggingHexagon.stopDragging()
+            draggingHexagon.resetGridPosition()
+            hexagonLevel.placeHolderHexagon.hide()
+            if found {
+                print("Is complete \(hexagonLevel.isFinished)")
             }
             
-            draggingHexagon = nil
+            self.draggingHexagon = nil
         }
     }
     

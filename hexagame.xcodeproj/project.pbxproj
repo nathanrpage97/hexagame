@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D83E274122D81D0400F1C8EE /* HexagonPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E274022D81D0400F1C8EE /* HexagonPlaceHolder.swift */; };
 		D861413722D228F9008CF711 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413622D228F9008CF711 /* AppDelegate.swift */; };
 		D861413D22D228F9008CF711 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413C22D228F9008CF711 /* GameScene.swift */; };
 		D861413F22D228F9008CF711 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413E22D228F9008CF711 /* GameViewController.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D83E274022D81D0400F1C8EE /* HexagonPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonPlaceHolder.swift; sourceTree = "<group>"; };
 		D861413322D228F9008CF711 /* hexagame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hexagame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D861413622D228F9008CF711 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D861413C22D228F9008CF711 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -90,6 +92,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D83E273F22D8164300F1C8EE /* Hexagon */ = {
+			isa = PBXGroup;
+			children = (
+				D861417622D2B19B008CF711 /* HexagonDrawer.swift */,
+				D861417222D2788E008CF711 /* HexagonLevel.swift */,
+				D861417022D277B4008CF711 /* HexagonStructs.swift */,
+				D861416E22D27791008CF711 /* HexagonSide.swift */,
+				D861416A22D22B3D008CF711 /* Hexagon.swift */,
+				D83E274022D81D0400F1C8EE /* HexagonPlaceHolder.swift */,
+			);
+			path = Hexagon;
+			sourceTree = "<group>";
+		};
 		D861412A22D228F9008CF711 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +128,7 @@
 		D861413522D228F9008CF711 /* hexagame */ = {
 			isa = PBXGroup;
 			children = (
+				D83E273F22D8164300F1C8EE /* Hexagon */,
 				D861416C22D23C75008CF711 /* hexagonBase.png */,
 				D861413622D228F9008CF711 /* AppDelegate.swift */,
 				D861413C22D228F9008CF711 /* GameScene.swift */,
@@ -121,12 +137,7 @@
 				D861414322D228FD008CF711 /* Assets.xcassets */,
 				D861414522D228FD008CF711 /* LaunchScreen.storyboard */,
 				D861414822D228FD008CF711 /* Info.plist */,
-				D861416A22D22B3D008CF711 /* Hexagon.swift */,
-				D861416E22D27791008CF711 /* HexagonSide.swift */,
-				D861417022D277B4008CF711 /* HexagonStructs.swift */,
-				D861417222D2788E008CF711 /* HexagonLevel.swift */,
 				D861417422D284BC008CF711 /* LevelGenerator.swift */,
-				D861417622D2B19B008CF711 /* HexagonDrawer.swift */,
 			);
 			path = hexagame;
 			sourceTree = "<group>";
@@ -285,6 +296,7 @@
 				D861413F22D228F9008CF711 /* GameViewController.swift in Sources */,
 				D861416B22D22B3D008CF711 /* Hexagon.swift in Sources */,
 				D861417722D2B19B008CF711 /* HexagonDrawer.swift in Sources */,
+				D83E274122D81D0400F1C8EE /* HexagonPlaceHolder.swift in Sources */,
 				D861416F22D27791008CF711 /* HexagonSide.swift in Sources */,
 				D861413722D228F9008CF711 /* AppDelegate.swift in Sources */,
 				D861417122D277B4008CF711 /* HexagonStructs.swift in Sources */,
