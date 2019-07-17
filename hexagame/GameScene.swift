@@ -18,9 +18,9 @@ class GameScene: SKScene {
     let pinch = UIPinchGestureRecognizer()
     
     override func didMove(to view: SKView) {
-        self.backgroundColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1)
-        let dificulty = 4
-        let seed: UInt64 = 123
+        self.backgroundColor = UIColor(red: 150/255.0, green: 150/255.0, blue: 150/255.0, alpha: 1)
+        let dificulty = 5
+        let seed: UInt64 = 13345
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
@@ -68,8 +68,8 @@ class GameScene: SKScene {
         }
 
         // upper bound the zoom
-        if hexagonLevelHeight / (camera.yScale * hexagonLevel.gridSize.height) > 600 || hexagonLevelWidth / (camera.xScale * hexagonLevel.gridSize.width) > 800 {
-            let newScale = max(hexagonLevelHeight / (600*hexagonLevel.gridSize.height), hexagonLevelWidth / ( 800 * hexagonLevel.gridSize.width))
+        if hexagonLevelHeight / (camera.yScale * hexagonLevel.gridSize.height) > 2400 || hexagonLevelWidth / (camera.xScale * hexagonLevel.gridSize.width) > 3200 {
+            let newScale = max(hexagonLevelHeight / (2400*hexagonLevel.gridSize.height), hexagonLevelWidth / ( 3200 * hexagonLevel.gridSize.width))
             camera.xScale = newScale
             camera.yScale = newScale
             viewWidth = self.frame.size.width * camera.xScale * 0.8

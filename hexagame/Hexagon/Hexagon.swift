@@ -84,7 +84,12 @@ class Hexagon: SKSpriteNode {
         self.gridIndex = gridIndex
         super.init(texture: SKTexture(imageNamed: "hexagonBase"), color: UIColor.clear, size: Hexagon.hexagonSize)
         self.position = gridPosition
-        self.zPosition = 0
+        
+        for side in self.sides {
+            side.bind(hexagon: self)
+        }
+        
+        self.zPosition = isMovable ? 0 : 1
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -127,11 +132,11 @@ class Hexagon: SKSpriteNode {
     func startDragging() {
         isDragging = true
         zPosition = 100
-        draw(recurse: true, lazy: true)
+        //draw(recurse: true, lazy: true)
     }
     func stopDragging() {
         isDragging = false
         zPosition = 0
-        draw(recurse: true, lazy: true)
+       draw(recurse: true, lazy: true)
     }
 }

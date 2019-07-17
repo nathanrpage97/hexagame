@@ -46,7 +46,7 @@ enum HexagonSideColor: Int {
     static func uiColor(color: HexagonSideColor) -> UIColor {
         switch color {
         case .base:
-            return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
+            return UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         case .red:
             return UIColor(red: 240/255.0, green: 120/255.0, blue: 90/255.0, alpha: 1)
         case .blue:
