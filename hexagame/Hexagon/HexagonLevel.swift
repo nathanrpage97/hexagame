@@ -12,14 +12,12 @@ class HexagonLevel: SKSpriteNode {
     var hexagons: [HexagonIndex: Hexagon]
     var gridSize: CGSize
     var isFinished: Bool {
-        get {
-            for hexagon in hexagons.values {
-                if !hexagon.isFullyConnected {
-                    return false
-                }
+        for hexagon in hexagons.values {
+            if !hexagon.isFullyConnected {
+                return false
             }
-            return true
         }
+        return true
     }
     let placeHolderHexagon = HexagonPlaceHolder()
 
