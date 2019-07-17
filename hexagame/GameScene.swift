@@ -18,7 +18,7 @@ class GameScene: SKScene {
     let pinch = UIPinchGestureRecognizer()
     
     override func didMove(to view: SKView) {
-        self.backgroundColor = UIColor(red: 150/255.0, green: 150/255.0, blue: 150/255.0, alpha: 1)
+        self.backgroundColor = .white
         let dificulty = 5
         let seed: UInt64 = 12345
         
@@ -31,6 +31,11 @@ class GameScene: SKScene {
         let hexagonLevel = LevelGenerator.create(seed: seed, dificulty: dificulty)
         self.addChild(hexagonLevel)
         self.hexagonLevel = hexagonLevel
+        
+        let test = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 100))
+        test.zPosition = 100
+        test.position = .zero
+        self.camera?.addChild(test)
         
         // add pan gesture handler
         pan.addTarget(self, action: #selector(panAction(_:)))
@@ -68,8 +73,8 @@ class GameScene: SKScene {
         }
 
         // upper bound the zoom
-        if hexagonLevelHeight / (camera.yScale * hexagonLevel.gridSize.height) > 300 || hexagonLevelWidth / (camera.xScale * hexagonLevel.gridSize.width) > 400 {
-            let newScale = max(hexagonLevelHeight / (300*hexagonLevel.gridSize.height), hexagonLevelWidth / ( 400 * hexagonLevel.gridSize.width))
+        if hexagonLevelHeight / (camera.yScale * CGFloat(hexagonLevel.gridSize.rows)) > 300 || hexagonLevelWidth / (camera.xScale * CGFloat(hexagonLevel.gridSize.cols)) > 400 {
+            let newScale = max(hexagonLevelHeight / CGFloat(300 * hexagonLevel.gridSize.rows), hexagonLevelWidth / CGFloat(400 * hexagonLevel.gridSize.cols))
             camera.xScale = newScale
             camera.yScale = newScale
             viewWidth = self.frame.size.width * camera.xScale * 0.8

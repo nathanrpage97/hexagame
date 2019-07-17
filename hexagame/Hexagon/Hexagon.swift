@@ -17,7 +17,6 @@ class Hexagon: SKSpriteNode {
     var gridIndex: HexagonIndex
     
     var isDragging = false
-    
     var north: HexagonSide = HexagonSide(direction: .north)
     var northEast: HexagonSide = HexagonSide(direction: .northEast)
     var southEast: HexagonSide = HexagonSide(direction: .southEast)
@@ -70,6 +69,9 @@ class Hexagon: SKSpriteNode {
     }
     var totalConnectedColors: Int {
         get {
+            if self.isDragging {
+                return 0
+            }
             return self.sides.reduce(0, {total, side in total + (side.isConnected ? 1 : 0)} )
         }
     }
@@ -84,11 +86,6 @@ class Hexagon: SKSpriteNode {
         self.gridIndex = gridIndex
         super.init(texture: SKTexture(imageNamed: "hexagonBase"), color: UIColor.clear, size: Hexagon.hexagonSize)
         self.position = gridPosition
-        
-        for side in self.sides {
-            side.bind(hexagon: self)
-        }
-        
         self.zPosition = isMovable ? 0 : 1
     }
     

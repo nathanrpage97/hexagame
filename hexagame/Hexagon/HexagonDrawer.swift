@@ -64,11 +64,11 @@ class HexagonDrawer {
         // draw the traingles of each side and the outside edge if not connected
         for side in hexagon.sides {
             // draw triangle for side
-            let triange = HexagonDrawer.createTriange(side: side)
+            let triange = HexagonDrawer.createTriange(hexagon: hexagon, side: side)
             ctx.draw(triange, in: CGRect(origin: .zero, size: self.size))
             
             // draw the outside edge
-            if !side.isConnected {
+            if !side.isConnected || hexagon.isDragging || side.neighbor?.isDragging ?? false {
                 let path = CGMutablePath()
                 path.move(to: CGPoint(x: 90 ,y: 0))
                 path.addLine(to: CGPoint(x: 120 ,y: 52))
@@ -77,7 +77,7 @@ class HexagonDrawer {
                 ctx.addPath(path)
                 ctx.strokePath()
             }
-
+            
             ctx.translateBy(x: 60, y: 52)
             ctx.rotate(by: CGFloat.pi/3)
             ctx.translateBy(x: -60, y: -52)
@@ -85,7 +85,7 @@ class HexagonDrawer {
         
         // draw the dividers
         for side in hexagon.sides {
-            if side.acrossSides.1?.isConnectable == true || side.isConnectable {
+            if hexagon.getSide(direction: side.direction.right).isConnectable || side.isConnectable {
                 let path = CGMutablePath()
                 path.move(to: CGPoint(x: 60 ,y: 52))
                 path.addLine(to: CGPoint(x: 120 ,y: 52))
@@ -102,7 +102,7 @@ class HexagonDrawer {
             ctx.translateBy(x: -60, y: -52)
         }
         
-        // draw the ellipse based on hexagon movability
+        // draw the circle based on hexagon movability
         if hexagon.isMovable {
             ctx.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
         } else {
@@ -112,7 +112,7 @@ class HexagonDrawer {
         ctx.setLineWidth(CGFloat(4))
         ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
         ctx.strokeEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
-
+        
         let image = ctx.makeImage()!
         UIGraphicsEndImageContext()
         return image
@@ -121,9 +121,10 @@ class HexagonDrawer {
     /// Generates the image for a triangle given the side and hexagon
     ///
     /// - Parameters:
+    ///   - hexagon: the hexagon to draw the triangle
     ///   - side: the side of the hexagon to draw the triangle
     /// - Returns: a triangle facing north-east
-    static func createTriange(side: HexagonSide) -> CGImage {
+    static func createTriange(hexagon: Hexagon, side: HexagonSide) -> CGImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         let ctx = UIGraphicsGetCurrentContext()!
         
@@ -132,20 +133,20 @@ class HexagonDrawer {
         ctx.concatenate(flipVertical)
         
         // if a connectable side draw triangle color otherwise skip
-        if !side.isConnectable {
+        if side.isConnectable {
             let path = CGMutablePath()
             path.move(to: CGPoint(x: 60 ,y: 53))
             path.addLine(to: CGPoint(x: 91 ,y: -1.7))
             path.addLine(to: CGPoint(x: 120 ,y: 53))
             path.closeSubpath()
             
-            ctx.setFillColor(HexagonSideColor.uiColor(color: side.connectionColor).cgColor)
+            ctx.setFillColor(side.connectionColor.uiColor.cgColor)
             ctx.addPath(path)
             ctx.fillPath()
         }
         
         // if triangle is connected draw the two black lines so the diamond connects properly
-        if side.isConnected {
+        if side.isConnected && !hexagon.isDragging && !(side.neighbor?.isDragging ?? false) {
             let path = CGMutablePath()
             path.move(to: CGPoint(x: 90 ,y: 0))
             path.addLine(to: CGPoint(x: 120 ,y: 0))

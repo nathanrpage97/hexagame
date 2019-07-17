@@ -23,6 +23,9 @@
 		D861417322D2788E008CF711 /* HexagonLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417222D2788E008CF711 /* HexagonLevel.swift */; };
 		D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417422D284BC008CF711 /* LevelGenerator.swift */; };
 		D861417722D2B19B008CF711 /* HexagonDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417622D2B19B008CF711 /* HexagonDrawer.swift */; };
+		D89A8F1022DF6ADD008E9C83 /* GKRandomSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F0F22DF6ADD008E9C83 /* GKRandomSource.swift */; };
+		D89A8F1322DF6B72008E9C83 /* LevelStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1222DF6B72008E9C83 /* LevelStructs.swift */; };
+		D89A8F1522DF6C4F008E9C83 /* LevelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,9 @@
 		D861417222D2788E008CF711 /* HexagonLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonLevel.swift; sourceTree = "<group>"; };
 		D861417422D284BC008CF711 /* LevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelGenerator.swift; sourceTree = "<group>"; };
 		D861417622D2B19B008CF711 /* HexagonDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonDrawer.swift; sourceTree = "<group>"; };
+		D89A8F0F22DF6ADD008E9C83 /* GKRandomSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKRandomSource.swift; sourceTree = "<group>"; };
+		D89A8F1222DF6B72008E9C83 /* LevelStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelStructs.swift; sourceTree = "<group>"; };
+		D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +134,8 @@
 		D861413522D228F9008CF711 /* hexagame */ = {
 			isa = PBXGroup;
 			children = (
+				D89A8F0E22DF6A74008E9C83 /* Extensions */,
+				D89A8F1122DF6B54008E9C83 /* Level */,
 				D83E273F22D8164300F1C8EE /* Hexagon */,
 				D861416C22D23C75008CF711 /* hexagonBase.png */,
 				D861413622D228F9008CF711 /* AppDelegate.swift */,
@@ -137,7 +145,6 @@
 				D861414322D228FD008CF711 /* Assets.xcassets */,
 				D861414522D228FD008CF711 /* LaunchScreen.storyboard */,
 				D861414822D228FD008CF711 /* Info.plist */,
-				D861417422D284BC008CF711 /* LevelGenerator.swift */,
 			);
 			path = hexagame;
 			sourceTree = "<group>";
@@ -158,6 +165,24 @@
 				D861415E22D228FD008CF711 /* Info.plist */,
 			);
 			path = hexagameUITests;
+			sourceTree = "<group>";
+		};
+		D89A8F0E22DF6A74008E9C83 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D89A8F0F22DF6ADD008E9C83 /* GKRandomSource.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D89A8F1122DF6B54008E9C83 /* Level */ = {
+			isa = PBXGroup;
+			children = (
+				D861417422D284BC008CF711 /* LevelGenerator.swift */,
+				D89A8F1222DF6B72008E9C83 /* LevelStructs.swift */,
+				D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */,
+			);
+			path = Level;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,8 +319,11 @@
 			files = (
 				D861413D22D228F9008CF711 /* GameScene.swift in Sources */,
 				D861413F22D228F9008CF711 /* GameViewController.swift in Sources */,
+				D89A8F1022DF6ADD008E9C83 /* GKRandomSource.swift in Sources */,
 				D861416B22D22B3D008CF711 /* Hexagon.swift in Sources */,
 				D861417722D2B19B008CF711 /* HexagonDrawer.swift in Sources */,
+				D89A8F1522DF6C4F008E9C83 /* LevelConstants.swift in Sources */,
+				D89A8F1322DF6B72008E9C83 /* LevelStructs.swift in Sources */,
 				D83E274122D81D0400F1C8EE /* HexagonPlaceHolder.swift in Sources */,
 				D861416F22D27791008CF711 /* HexagonSide.swift in Sources */,
 				D861413722D228F9008CF711 /* AppDelegate.swift in Sources */,

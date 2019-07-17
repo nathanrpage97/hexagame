@@ -8,6 +8,7 @@
 
 import SpriteKit
 
+/// Provides a means to show the six directions of a hexagon
 enum HexagonDirection: Int, CaseIterable {
     case north
     case northEast
@@ -16,8 +17,9 @@ enum HexagonDirection: Int, CaseIterable {
     case southWest
     case northWest
     
-    static func oppositeDirection(direction: HexagonDirection) -> HexagonDirection {
-        switch direction {
+    /// gets the opposite direction of the hexagon
+    var oppositeDirection: HexagonDirection {
+        switch self {
         case .north:
             return .south
         case .northEast:
@@ -32,10 +34,47 @@ enum HexagonDirection: Int, CaseIterable {
             return .southEast
         }
     }
+    
+    /// gets the direction to the left (facing out from center of hexagon)
+    var left: HexagonDirection {
+        switch self {
+        case .north:
+            return .northWest
+        case .northEast:
+            return .north
+        case .southEast:
+            return .northEast
+        case .south:
+            return .southEast
+        case .southWest:
+            return .south
+        case .northWest:
+            return .southWest
+        }
+    }
+    
+    /// gets the direction to the right (facing out from center of hexagon)
+    var right: HexagonDirection {
+        switch self {
+        case .north:
+            return .northEast
+        case .northEast:
+            return .southEast
+        case .southEast:
+            return .south
+        case .south:
+            return .southWest
+        case .southWest:
+            return .northWest
+        case .northWest:
+            return .north
+        }
+    }
 }
 
+/// Provide all the possbile colors of a hexagon
 enum HexagonSideColor: Int {
-    case base = 0
+    case base = 0 // the default one which isn't connectable
     case red
     case blue
     case green
@@ -43,10 +82,11 @@ enum HexagonSideColor: Int {
     case purple
     case yellow
     
-    static func uiColor(color: HexagonSideColor) -> UIColor {
-        switch color {
+    /// give the uiColor for a given enum
+    var uiColor: UIColor {
+        switch self {
         case .base:
-            return UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+            return UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         case .red:
             return UIColor(red: 240/255.0, green: 120/255.0, blue: 90/255.0, alpha: 1)
         case .blue:
@@ -63,10 +103,18 @@ enum HexagonSideColor: Int {
     }
 }
 
+/// Provides indexing for a hexagon. Allows hashable for use in map and comparable for ordering
 struct HexagonIndex: Hashable, Comparable {
+    /// row position of the hexagon
     var row: Int
+    /// column position of the hexagon
     var col: Int
     
+    
+    /// Get the index of neighbor given a direction
+    ///
+    /// - Parameter direction: which direction to get neighbor
+    /// - Returns: neighbor indexx in the direction specified
     func getNeighborIndex(direction: HexagonDirection) -> HexagonIndex {
         switch direction {
         case .north:
@@ -84,11 +132,17 @@ struct HexagonIndex: Hashable, Comparable {
         }
     }
     
+    /// Implementation for comparable
     static func == (lhs: HexagonIndex, rhs: HexagonIndex) -> Bool {
         return lhs.row == rhs.row && lhs.col == rhs.col
     }
     
+    /// Implementation for comparable. Row is more important than column
     static func < (lhs: HexagonIndex, rhs: HexagonIndex) -> Bool {
         return lhs.row < rhs.row || (lhs.row == rhs.row && lhs.col < rhs.col)
+    }
+    
+    static func - (lhs: HexagonIndex, rhs: HexagonIndex) -> HexagonIndex {
+        return HexagonIndex(row: lhs.row - rhs.row, col: lhs.col - rhs.col)
     }
 }
