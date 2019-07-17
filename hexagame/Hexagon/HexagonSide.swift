@@ -64,8 +64,10 @@ class HexagonSide {
                 if neighbor.isDragging {
                     return false
                 }
-                let neighborSide = neighbor.getSide(direction: HexagonDirection.oppositeDirection(direction: direction))
-                return isConnectable && connectionColor == neighborSide.connectionColor
+                if parent?.isDragging == true {
+                    return false
+                }
+                return isConnectable && connectionColor == neighborSide?.connectionColor
             }
             return false
             

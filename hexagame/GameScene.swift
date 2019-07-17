@@ -20,7 +20,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         self.backgroundColor = UIColor(red: 150/255.0, green: 150/255.0, blue: 150/255.0, alpha: 1)
         let dificulty = 5
-        let seed: UInt64 = 13345
+        let seed: UInt64 = 12345
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         

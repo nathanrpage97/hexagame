@@ -72,14 +72,16 @@ class HexagonDrawer {
         
         // draw the dividers
         for side in hexagon.sides {
-            if side.acrossSides.1?.connectionColor != .base || side.connectionColor != .base {
+            if side.acrossSides.1?.isConnectable == true || side.isConnectable {
                 let path = CGMutablePath()
                 path.move(to: CGPoint(x: 60 ,y: 52))
                 path.addLine(to: CGPoint(x: 120 ,y: 52))
                 ctx.setLineWidth(4)
                 ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
                 ctx.addPath(path)
+                ctx.setLineCap(.square)
                 ctx.strokePath()
+                ctx.setLineCap(.butt)
             }
             
             ctx.translateBy(x: 60, y: 52)
@@ -112,12 +114,6 @@ class HexagonDrawer {
         let flipVertical = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: self.size.height)
         ctx.concatenate(flipVertical)
 
-        //let (leftSide, rightSide) = side.acrossSides
-        
-        // create triangle mask to be contained within
-        
-        
-        
         if side.connectionColor != .base {
             let path = CGMutablePath()
             path.move(to: CGPoint(x: 60 ,y: 53))
@@ -132,18 +128,27 @@ class HexagonDrawer {
         
         if side.isConnected {
             let path = CGMutablePath()
-            path.move(to: CGPoint(x: 0 ,y: 0))
+            path.move(to: CGPoint(x: 90 ,y: 0))
             path.addLine(to: CGPoint(x: 120 ,y: 0))
-            path.move(to: CGPoint(x: 90 ,y: 104))
+            path.move(to: CGPoint(x: 120 ,y: 52))
             path.addLine(to: CGPoint(x: 150 ,y: 0))
             path.closeSubpath()
             ctx.addPath(path)
             ctx.setLineCap(.square)
-            ctx.setBlendMode(.clear)
+            ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
             ctx.setLineWidth(8)
             ctx.strokePath()
-            ctx.setBlendMode(.normal)
             ctx.setLineCap(.butt)
+
+        } else if side.isConnectable {
+            let path = CGMutablePath()
+            path.move(to: CGPoint(x: 82 ,y: 39))
+            path.addLine(to: CGPoint(x: 105 ,y: 0))
+            path.addLine(to: CGPoint(x:  120,y: 39))
+            path.closeSubpath()
+            ctx.addPath(path)
+            ctx.setFillColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+            ctx.fillPath()
         }
         
         let image = ctx.makeImage()!

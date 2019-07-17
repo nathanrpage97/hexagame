@@ -122,7 +122,7 @@ class Hexagon: SKSpriteNode {
         self.texture = SKTexture(cgImage: HexagonDrawer.draw(hexagon: self))
         if recurse {
             for side in self.sides {
-                if !lazy || side.isConnected {
+                if !lazy || side.isSameNeighborColor {
                     side.neighbor?.draw(recurse: false)
                 }
             }
@@ -132,11 +132,11 @@ class Hexagon: SKSpriteNode {
     func startDragging() {
         isDragging = true
         zPosition = 100
-        //draw(recurse: true, lazy: true)
+        draw(recurse: true, lazy: true)
     }
     func stopDragging() {
         isDragging = false
         zPosition = 0
-       draw(recurse: true, lazy: true)
+        draw(recurse: true, lazy: true)
     }
 }
