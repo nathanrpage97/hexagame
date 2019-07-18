@@ -54,10 +54,20 @@ class HexagonLevel: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Gets a hexagon given index
+    ///
+    /// - Parameter index: Hexagon Index of hexagon
+    /// - Returns: hexagon if it exists
     func getHexagon(index: HexagonIndex) -> Hexagon? {
         return hexagons[index]
     }
     
+    
+    /// Switch hexagon connections
+    ///
+    /// - Parameters:
+    ///   - srcHexagon: hexagon 1 to switch colors
+    ///   - destinationHexagon: hexagon 2 to switch colors
     func switchHexagons(srcHexagon: Hexagon, destinationHexagon: Hexagon) {
         srcHexagon.switchColors(hexagon: destinationHexagon)
     }

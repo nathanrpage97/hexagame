@@ -18,9 +18,9 @@ class GameScene: SKScene {
     let pinch = UIPinchGestureRecognizer()
     
     override func didMove(to view: SKView) {
-        self.backgroundColor = .white
-        let dificulty = 5
-        let seed: UInt64 = 12345
+        self.backgroundColor = UIColor.init(red: 223/255.0, green: 227/255.0, blue: 224/255.0, alpha: 1)
+        let dificulty = 6
+        let seed: UInt64 = 39295
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
@@ -35,7 +35,7 @@ class GameScene: SKScene {
         let test = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 100))
         test.zPosition = 100
         test.position = .zero
-        self.camera?.addChild(test)
+        //self.camera?.addChild(test)
         
         // add pan gesture handler
         pan.addTarget(self, action: #selector(panAction(_:)))

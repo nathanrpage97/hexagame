@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+/// Provide helpful constants to use for levels
 struct LevelConstants {
     static let metas = [
         MetaLevel(
@@ -85,11 +85,11 @@ struct LevelConstants {
         ),
         MetaLevel(
             dificulty: 9,
-            sizes: (width: 12...15, height: 12...15),
-            hexagonDensity: 0.4...0.6,
+            sizes: (width: 10...12, height: 10...12),
+            hexagonDensity: 0.5...0.7,
             colors: 4...6,
-            colorDensity: 1.1...1.3,
-            startHexagons: 1...4
+            colorDensity: 0.9...1.1,
+            startHexagons: 2...4
         ),
     ]
 }

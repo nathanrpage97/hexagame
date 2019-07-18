@@ -47,12 +47,12 @@ class HexagonDrawer {
         path.addLine(to: CGPoint(x: 90, y: 103))
         path.closeSubpath()
         ctx.addPath(path)
-        
+
         // use hexagon movability to determine background color
         if hexagon.isMovable {
-            ctx.setFillColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1) // light gray
+            ctx.setFillColor(red: 1, green: 1, blue: 1, alpha: 1) // light gray
         } else {
-            ctx.setFillColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1) // dark gray
+            ctx.setFillColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1) // dark gray
         }
         ctx.fillPath()
         
@@ -67,13 +67,14 @@ class HexagonDrawer {
             let triange = HexagonDrawer.createTriange(hexagon: hexagon, side: side)
             ctx.draw(triange, in: CGRect(origin: .zero, size: self.size))
             
+            // !side.isConnected || hexagon.isDragging || side.neighbor?.isDragging ?? false
             // draw the outside edge
             if !side.isConnected || hexagon.isDragging || side.neighbor?.isDragging ?? false {
                 let path = CGMutablePath()
                 path.move(to: CGPoint(x: 90 ,y: 0))
                 path.addLine(to: CGPoint(x: 120 ,y: 52))
-                ctx.setLineWidth(8)
-                ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+                ctx.setLineWidth(6)
+                ctx.setStrokeColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
                 ctx.addPath(path)
                 ctx.strokePath()
             }
@@ -89,8 +90,8 @@ class HexagonDrawer {
                 let path = CGMutablePath()
                 path.move(to: CGPoint(x: 60 ,y: 52))
                 path.addLine(to: CGPoint(x: 120 ,y: 52))
-                ctx.setLineWidth(4)
-                ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+                ctx.setLineWidth(3)
+                ctx.setStrokeColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
                 ctx.addPath(path)
                 ctx.setLineCap(.square)
                 ctx.strokePath()
@@ -106,11 +107,11 @@ class HexagonDrawer {
         if hexagon.isMovable {
             ctx.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
         } else {
-            ctx.setFillColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+            ctx.setFillColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         }
         ctx.fillEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
-        ctx.setLineWidth(CGFloat(4))
-        ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+        ctx.setLineWidth(3)
+        ctx.setStrokeColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
         ctx.strokeEllipse(in: CGRect(origin: CGPoint(x: 50, y: 42), size: CGSize(width: 20, height: 20)))
         
         let image = ctx.makeImage()!
@@ -155,20 +156,39 @@ class HexagonDrawer {
             path.closeSubpath()
             ctx.addPath(path)
             ctx.setLineCap(.square)
-            ctx.setStrokeColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
-            ctx.setLineWidth(8)
+            ctx.setStrokeColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+            ctx.setLineWidth(6)
             ctx.strokePath()
             ctx.setLineCap(.butt)
         } else if side.isConnectable {
-            // if triangle is able to be connected, draw black triangle to make it into a caret
-            let path = CGMutablePath()
-            path.move(to: CGPoint(x: 82 ,y: 39))
-            path.addLine(to: CGPoint(x: 105 ,y: 0))
-            path.addLine(to: CGPoint(x:  120,y: 39))
-            path.closeSubpath()
+            // if triangle is able to be connected, draw black triangle to make it hollow
+            var path = CGMutablePath()
+            
+            
+            
+            path = CGMutablePath()
+            path.move(to: CGPoint(x: 108, y: 4))
+            path.addLine(to: CGPoint(x: 90, y: 34.5))
+            path.addLine(to: CGPoint(x: 120, y: 35))
+            
+            //path.closeSubpath()
             ctx.addPath(path)
-            ctx.setFillColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+            ctx.setStrokeColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+            ctx.setLineWidth(6)
+            ctx.strokePath()
+            
+            
+            path = CGMutablePath()
+            path.move(to: CGPoint(x: 90, y: 34.5))
+            path.addLine(to: CGPoint(x: 108, y: 4))
+            path.addLine(to: CGPoint(x: 120, y: 4))
+            path.addLine(to: CGPoint(x: 120, y: 35))
+            
+            path.closeSubpath()
+            ctx.setBlendMode(.clear)
+            ctx.addPath(path)
             ctx.fillPath()
+            ctx.setBlendMode(.normal)
         }
         
         let image = ctx.makeImage()!

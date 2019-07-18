@@ -11,15 +11,22 @@ import GameplayKit
 /// Creates a level
 class LevelGenerator {
     
-    ///
+    /// seeded rng to make deterministic decisions
     static var rng = GKLinearCongruentialRandomSource.init(seed: 0)
-
+    
+    
+    /// Create a level
+    ///
+    /// - Parameters:
+    ///   - seed: what seed to use for rng
+    ///   - dificulty: what dificulty to use
+    /// - Returns: Hexagon Level
     static func create(seed: UInt64, dificulty: Int) -> HexagonLevel {
         self.rng = GKLinearCongruentialRandomSource.init(seed: seed)
         
         let meta = LevelConstants.metas[dificulty]
         let description = LevelDescription(rng: self.rng, meta: meta)
-
+        
         // generates the grid
         let level = generateLevelHexagons(description: description)
         
@@ -32,15 +39,22 @@ class LevelGenerator {
         return level
     }
     
+    
+    /// Creates a level of hexagons based off parameters with no connections.
+    ///
+    /// - Parameter description: parameters used to create level
+    /// - Returns: simple conection-less hexagon level
     static func generateLevelHexagons(description: LevelDescription) -> HexagonLevel {
         var hexagons = [HexagonIndex: Hexagon]()
         
         var availableHexagonIndecies: [HexagonIndex] = []
         
+        // place the starting hexagons at random positions
         for _ in 0..<description.startHexagons {
             availableHexagonIndecies.append(HexagonIndex(row: rng.nextInt(upperBound: description.size.height), col: rng.nextInt(upperBound: description.size.width)))
         }
         
+        // iterate until all levels hexagons are created
         while hexagons.count < description.totalHexagons {
             let newHexagonIndex = availableHexagonIndecies.remove(at: self.rng.nextInt(upperBound: availableHexagonIndecies.count))
             
@@ -67,16 +81,17 @@ class LevelGenerator {
             
         }
         
+        // get the extrema positions of the board
         var minTop = Int.max, maxTop = Int.min, minLeft = Int.max, maxLeft = Int.min
-
+        
         for hexagonIndex in hexagons.keys {
             minTop = min(hexagonIndex.row, minTop)
             maxTop = max(hexagonIndex.row, maxTop)
             minLeft = min(hexagonIndex.col, minLeft)
             maxLeft = max(hexagonIndex.col, maxLeft)
         }
-        print(minTop, maxTop, minLeft, maxLeft)
-
+        
+        // use extrema to zero position the board
         var simplifiedHexagons = [HexagonIndex: Hexagon]()
         for (hexagonIndex, hexagon) in hexagons {
             let newIndex = HexagonIndex(row: hexagonIndex.row - minTop, col: hexagonIndex.col - minLeft)
@@ -84,17 +99,23 @@ class LevelGenerator {
             hexagon.resetGridPosition()
             simplifiedHexagons[newIndex] = hexagon
         }
-
+        
+        // bind neighbors together
         for hexagon in simplifiedHexagons.values {
             hexagon.sides.forEach({side in
                 side.bindNeighbors(parentHexagon: hexagon, otherHexagon: simplifiedHexagons[hexagon.gridIndex.getNeighborIndex(direction: side.direction)])
             })
         }
-        
-        
+        // create the hexagon level
         return HexagonLevel(hexagons: simplifiedHexagons, gridSize: (cols: maxLeft - minLeft + 1, rows: maxTop - minTop + 1))
     }
     
+    
+    /// Given an empty connection level and description, populate level with connections
+    ///
+    /// - Parameters:
+    ///   - level: level to populate connections
+    ///   - description: level description indicating how much to populate
     static func populateGridWithConnections(level: HexagonLevel, description: LevelDescription) {
         var colorConnectionsCreated = 0
         let keys = level.hexagons.keys.sorted()
@@ -109,20 +130,27 @@ class LevelGenerator {
             
         }
     }
-    // scrambling doesn't use the seed to make it more interesting
+    
+    /// Scramble the hexagons in the map w/o using the seeded rng
+    ///
+    /// - Parameter level: level to scramble
     static func scrambleLevel(level: HexagonLevel) {
         // get hexagons in order of index
         for hexagon in level.hexagons.values.sorted(by: {(hexagon1, hexagon2) in hexagon1.gridIndex < hexagon2.gridIndex}) {
+            // only if it can be moved
             if !hexagon.isMovable {
                 continue
             }
             if let (newHexagonIndex, newHexagon) = level.hexagons.randomElement() {
+                // skip if switching the same hexagon index
                 if newHexagonIndex == hexagon.gridIndex {
                     continue
                 }
+                // new hexagon must also be switchable
                 if !newHexagon.isMovable {
                     continue
                 }
+                // switch the colors of the sides
                 hexagon.switchColors(hexagon: newHexagon, redraw: false)
             }
         }

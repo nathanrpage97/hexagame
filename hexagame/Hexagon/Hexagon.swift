@@ -11,7 +11,7 @@ import SpriteKit
 class Hexagon: SKSpriteNode {
     
     static let hexagonSize = CGSize(width: 120, height: 104) // size with border
-    static let innerSize = CGSize(width: 90 - sqrt(12), height: 100) // size without the border
+    static let innerSize = CGSize(width: 90 - sqrt(9), height: 101) // size without the border
     // settable values
     var isMovable = true
     var gridIndex: HexagonIndex
