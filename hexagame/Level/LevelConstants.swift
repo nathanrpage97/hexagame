@@ -90,7 +90,6 @@ struct LevelConstants {
             colors: 4...6,
             colorDensity: 0.9...1.1,
             startHexagons: 2...4
-        ),
+        )
     ]
 }
-

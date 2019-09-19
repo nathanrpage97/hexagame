@@ -10,7 +10,7 @@ import GameplayKit
 
 struct MetaLevel {
     var dificulty: Int
-    var sizes: (width:ClosedRange<Int>, height: ClosedRange<Int>)
+    var sizes: (width: ClosedRange<Int>, height: ClosedRange<Int>)
     var hexagonDensity: ClosedRange<Float>
     var colors: ClosedRange<Int>
     var colorDensity: ClosedRange<Float>
@@ -23,14 +23,14 @@ struct LevelDescription {
     var colors: Int
     var connections: Int
     var startHexagons: Int
-    
+
     init(rng: GKRandomSource, meta: MetaLevel) {
         // helper variables from rng
         let gridWidth = rng.nextInt(bounds: meta.sizes.width)
         let gridHeight = rng.nextInt(bounds: meta.sizes.height)
         let hexagonDensity = rng.nextUniform(bounds: meta.hexagonDensity)
         let connectionDensity = rng.nextUniform(bounds: meta.colorDensity)
-        
+
         self.size = (width: gridWidth, height: gridHeight)
         self.totalHexagons = Int(Float(gridWidth * gridHeight) * hexagonDensity)
         self.colors = rng.nextInt(bounds: meta.colors)

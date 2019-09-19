@@ -26,6 +26,8 @@
 		D89A8F1022DF6ADD008E9C83 /* GKRandomSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F0F22DF6ADD008E9C83 /* GKRandomSource.swift */; };
 		D89A8F1322DF6B72008E9C83 /* LevelStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1222DF6B72008E9C83 /* LevelStructs.swift */; };
 		D89A8F1522DF6C4F008E9C83 /* LevelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */; };
+		D89A8F1722E00255008E9C83 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1622E00255008E9C83 /* HomeScene.swift */; };
+		D89A8F1C22E00955008E9C83 /* LoadingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1B22E00955008E9C83 /* LoadingScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		D89A8F0F22DF6ADD008E9C83 /* GKRandomSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKRandomSource.swift; sourceTree = "<group>"; };
 		D89A8F1222DF6B72008E9C83 /* LevelStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelStructs.swift; sourceTree = "<group>"; };
 		D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelConstants.swift; sourceTree = "<group>"; };
+		D89A8F1622E00255008E9C83 /* HomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
+		D89A8F1B22E00955008E9C83 /* LoadingScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,8 @@
 				D861414322D228FD008CF711 /* Assets.xcassets */,
 				D861414522D228FD008CF711 /* LaunchScreen.storyboard */,
 				D861414822D228FD008CF711 /* Info.plist */,
+				D89A8F1622E00255008E9C83 /* HomeScene.swift */,
+				D89A8F1B22E00955008E9C83 /* LoadingScene.swift */,
 			);
 			path = hexagame;
 			sourceTree = "<group>";
@@ -195,6 +201,7 @@
 				D861412F22D228F9008CF711 /* Sources */,
 				D861413022D228F9008CF711 /* Frameworks */,
 				D861413122D228F9008CF711 /* Resources */,
+				D881CEE32334195D006AE432 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -312,6 +319,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D881CEE32334195D006AE432 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D861412F22D228F9008CF711 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -320,12 +347,14 @@
 				D861413D22D228F9008CF711 /* GameScene.swift in Sources */,
 				D861413F22D228F9008CF711 /* GameViewController.swift in Sources */,
 				D89A8F1022DF6ADD008E9C83 /* GKRandomSource.swift in Sources */,
+				D89A8F1722E00255008E9C83 /* HomeScene.swift in Sources */,
 				D861416B22D22B3D008CF711 /* Hexagon.swift in Sources */,
 				D861417722D2B19B008CF711 /* HexagonDrawer.swift in Sources */,
 				D89A8F1522DF6C4F008E9C83 /* LevelConstants.swift in Sources */,
 				D89A8F1322DF6B72008E9C83 /* LevelStructs.swift in Sources */,
 				D83E274122D81D0400F1C8EE /* HexagonPlaceHolder.swift in Sources */,
 				D861416F22D27791008CF711 /* HexagonSide.swift in Sources */,
+				D89A8F1C22E00955008E9C83 /* LoadingScene.swift in Sources */,
 				D861413722D228F9008CF711 /* AppDelegate.swift in Sources */,
 				D861417122D277B4008CF711 /* HexagonStructs.swift in Sources */,
 				D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */,
@@ -504,6 +533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WBL5C3Q9DS;
 				INFOPLIST_FILE = hexagame/Info.plist;
@@ -514,6 +544,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -523,6 +554,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WBL5C3Q9DS;
 				INFOPLIST_FILE = hexagame/Info.plist;
@@ -533,6 +565,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

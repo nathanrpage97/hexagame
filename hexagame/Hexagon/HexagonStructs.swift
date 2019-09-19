@@ -16,7 +16,7 @@ enum HexagonDirection: Int, CaseIterable {
     case south
     case southWest
     case northWest
-    
+
     /// gets the opposite direction of the hexagon
     var oppositeDirection: HexagonDirection {
         switch self {
@@ -34,7 +34,7 @@ enum HexagonDirection: Int, CaseIterable {
             return .southEast
         }
     }
-    
+
     /// gets the direction to the left (facing out from center of hexagon)
     var left: HexagonDirection {
         switch self {
@@ -52,7 +52,7 @@ enum HexagonDirection: Int, CaseIterable {
             return .southWest
         }
     }
-    
+
     /// gets the direction to the right (facing out from center of hexagon)
     var right: HexagonDirection {
         switch self {
@@ -81,7 +81,7 @@ enum HexagonSideColor: Int {
     case orange
     case purple
     case yellow
-    
+
     /// give the uiColor for a given enum
     var uiColor: UIColor {
         switch self {
@@ -109,8 +109,7 @@ struct HexagonIndex: Hashable, Comparable {
     var row: Int
     /// column position of the hexagon
     var col: Int
-    
-    
+
     /// Get the index of neighbor given a direction
     ///
     /// - Parameter direction: which direction to get neighbor
@@ -131,17 +130,17 @@ struct HexagonIndex: Hashable, Comparable {
             return HexagonIndex(row: self.row + 1, col: self.col + (self.row % 2 == 0 ? -1 : 0))
         }
     }
-    
+
     /// Implementation for comparable
     static func == (lhs: HexagonIndex, rhs: HexagonIndex) -> Bool {
         return lhs.row == rhs.row && lhs.col == rhs.col
     }
-    
+
     /// Implementation for comparable. Row is more important than column
     static func < (lhs: HexagonIndex, rhs: HexagonIndex) -> Bool {
         return lhs.row < rhs.row || (lhs.row == rhs.row && lhs.col < rhs.col)
     }
-    
+
     static func - (lhs: HexagonIndex, rhs: HexagonIndex) -> HexagonIndex {
         return HexagonIndex(row: lhs.row - rhs.row, col: lhs.col - rhs.col)
     }

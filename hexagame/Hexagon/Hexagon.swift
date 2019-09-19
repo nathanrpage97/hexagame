@@ -7,15 +7,14 @@
 //
 import SpriteKit
 
-
 class Hexagon: SKSpriteNode {
-    
+
     static let hexagonSize = CGSize(width: 120, height: 104) // size with border
     static let innerSize = CGSize(width: 90 - sqrt(9), height: 101) // size without the border
     // settable values
     var isMovable = true
     var gridIndex: HexagonIndex
-    
+
     var isDragging = false
     var north: HexagonSide = HexagonSide(direction: .north)
     var northEast: HexagonSide = HexagonSide(direction: .northEast)
@@ -23,9 +22,9 @@ class Hexagon: SKSpriteNode {
     var south: HexagonSide = HexagonSide(direction: .south)
     var southWest: HexagonSide = HexagonSide(direction: .southWest)
     var northWest: HexagonSide = HexagonSide(direction: .northWest)
-    
+
     func getSide(direction: HexagonDirection) -> HexagonSide {
-        switch (direction) {
+        switch direction {
         case .north:
             return north
         case .northEast:
@@ -40,47 +39,37 @@ class Hexagon: SKSpriteNode {
             return northWest
         }
     }
-    
+
     // computed values
     var sides: [HexagonSide] {
-        get {
-            return [north, northEast, southEast, south, southWest, northWest]
-        }
+        return [north, northEast, southEast, south, southWest, northWest]
     }
-    
+
     var gridPosition: CGPoint {
-        get {
-            var x = (2 * CGFloat(gridIndex.col) * Hexagon.innerSize.width) + (0.5 * Hexagon.hexagonSize.width)
-            if gridIndex.row % 2 == 1 {
-                x += Hexagon.innerSize.width
-            }
-
-            let y = (0.5 * CGFloat(gridIndex.row) * Hexagon.innerSize.height) + (0.5 * Hexagon.hexagonSize.height)
-
-            return CGPoint(x: x, y:y)
+        var gridX = (2 * CGFloat(gridIndex.col) * Hexagon.innerSize.width) + (0.5 * Hexagon.hexagonSize.width)
+        if gridIndex.row % 2 == 1 {
+            gridX += Hexagon.innerSize.width
         }
+
+        let gridY = (0.5 * CGFloat(gridIndex.row) * Hexagon.innerSize.height) + (0.5 * Hexagon.hexagonSize.height)
+
+        return CGPoint(x: gridX, y: gridY)
     }
-    
-    
+
     var totalColors: Int {
-        get {
-            return self.sides.reduce(0, {total, side in total + (side.isConnectable ? 1 : 0)} )
-        }
+        return self.sides.reduce(0, {total, side in total + (side.isConnectable ? 1 : 0)})
     }
+
     var totalConnectedColors: Int {
-        get {
-            if self.isDragging {
-                return 0
-            }
-            return self.sides.reduce(0, {total, side in total + (side.isConnected ? 1 : 0)} )
+        if self.isDragging {
+            return 0
         }
+        return self.sides.reduce(0, {total, side in total + (side.isConnected ? 1 : 0)})
     }
     var isFullyConnected: Bool {
-        get {
-            return totalColors == totalConnectedColors
-        }
+        return totalColors == totalConnectedColors
     }
-    
+
     init(isMovable: Bool, gridIndex: HexagonIndex) {
         self.isMovable = isMovable
         self.gridIndex = gridIndex
@@ -88,7 +77,7 @@ class Hexagon: SKSpriteNode {
         self.position = gridPosition
         self.zPosition = isMovable ? 0 : 1
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -97,7 +86,7 @@ class Hexagon: SKSpriteNode {
         if !isMovable || !hexagon.isMovable {
             return
         }
-        
+
         for (sideA, sideB) in zip(sides, hexagon.sides) {
             swap(&sideA.connectionColor, &sideB.connectionColor)
         }
@@ -106,15 +95,15 @@ class Hexagon: SKSpriteNode {
             hexagon.draw(recurse: true)
         }
     }
-    
+
     func resetGridPosition() {
         self.position = gridPosition
     }
-    
+
     func isTouching(location: CGPoint) -> Bool {
-        return location.x * location.x + location.y * location.y < (Hexagon.innerSize.height/2) * (Hexagon.innerSize.height/2)
+        return pow(location.x, 2) + pow(location.y, 2) < pow(Hexagon.innerSize.height/2, 2)
     }
-    
+
     func draw(recurse: Bool, lazy: Bool = false) {
         self.texture = SKTexture(cgImage: HexagonDrawer.draw(hexagon: self))
         if recurse {
@@ -125,7 +114,7 @@ class Hexagon: SKSpriteNode {
             }
         }
     }
-    
+
     func startDragging() {
         isDragging = true
         zPosition = 100

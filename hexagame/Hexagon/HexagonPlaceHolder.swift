@@ -17,11 +17,11 @@ class HexagonPlaceHolder: SKSpriteNode {
         self.alpha = 0.6
         self.zPosition = -1
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     /// Show the hexagon at a specific location
     ///
     /// - Parameter position: The position to show the placeholder
@@ -29,7 +29,7 @@ class HexagonPlaceHolder: SKSpriteNode {
         self.position = position
         self.isHidden = false
     }
-    
+
     /// Hide the hexagon placeholder
     func hide() {
         self.isHidden = true

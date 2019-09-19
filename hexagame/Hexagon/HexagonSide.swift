@@ -11,38 +11,35 @@ class HexagonSide {
     var connectionColor: HexagonSideColor = .base
     var neighbor: Hexagon?
     var direction: HexagonDirection
-    
+
     init(direction: HexagonDirection) {
         self.direction = direction
     }
-    
+
     var isConnectable: Bool {
         return connectionColor != .base
     }
     var neighborSide: HexagonSide? {
-        get {
-            return neighbor?.getSide(direction: direction.oppositeDirection)
-        }
+        return neighbor?.getSide(direction: direction.oppositeDirection)
     }
-    
+
     var neigborColor: HexagonSideColor? {
         return neighborSide?.connectionColor
     }
-    
+
     var isConnected: Bool {
         return isConnectable && connectionColor == neighborSide?.connectionColor
     }
-    
+
     var isSameNeighborColor: Bool {
         return connectionColor == neighborSide?.connectionColor
     }
-    
+
     func bindNeighbors(parentHexagon: Hexagon, otherHexagon: Hexagon?) {
         self.neighbor = otherHexagon
         otherHexagon?.getSide(direction: direction.oppositeDirection).neighbor = parentHexagon
     }
-    
-    
+
     func createConnection(connectionColor: HexagonSideColor) -> Bool {
         if self.connectionColor != .base {
             return false
