@@ -28,13 +28,7 @@ class LoadingScene: SKScene {
 
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
-        let test = SKSpriteNode(color: .blue, size: CGSize(width: 100, height: 100))
-        test.zPosition = 100
-        test.position = .zero
-        self.addChild(test)
-
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
-            print("Hello")
             guard let `self` = self else { return }
             let reveal = SKTransition.fade(with: self.backgroundColor, duration: 0.5)
             let scene = GameScene(size: self.size, dificulty: self.dificulty, seed: self.level)

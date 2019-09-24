@@ -88,11 +88,11 @@ enum HexagonSideColor: Int {
         case .base:
             return UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         case .red:
-            return UIColor(red: 240/255.0, green: 120/255.0, blue: 90/255.0, alpha: 1)
+            return UIColor(red: 255/255.0, green: 90/255.0, blue: 90/255.0, alpha: 1)
         case .blue:
             return UIColor(red: 90/255.0, green: 140/255.0, blue: 240/255.0, alpha: 1)
         case .green:
-            return UIColor(red: 20/255.0, green: 240/255.0, blue: 175/255.0, alpha: 1)
+            return UIColor(red: 20/255.0, green: 240/255.0, blue: 155/255.0, alpha: 1)
         case .orange:
             return UIColor(red: 240/255.0, green: 150/255.0, blue: 20/255.0, alpha: 1)
         case .purple:

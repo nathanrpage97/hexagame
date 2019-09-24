@@ -23,6 +23,7 @@
 		D861417322D2788E008CF711 /* HexagonLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417222D2788E008CF711 /* HexagonLevel.swift */; };
 		D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417422D284BC008CF711 /* LevelGenerator.swift */; };
 		D861417722D2B19B008CF711 /* HexagonDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417622D2B19B008CF711 /* HexagonDrawer.swift */; };
+		D881CEE5233470BA006AE432 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D881CEE4233470BA006AE432 /* .swiftlint.yml */; };
 		D89A8F1022DF6ADD008E9C83 /* GKRandomSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F0F22DF6ADD008E9C83 /* GKRandomSource.swift */; };
 		D89A8F1322DF6B72008E9C83 /* LevelStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1222DF6B72008E9C83 /* LevelStructs.swift */; };
 		D89A8F1522DF6C4F008E9C83 /* LevelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */; };
@@ -70,6 +71,7 @@
 		D861417222D2788E008CF711 /* HexagonLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonLevel.swift; sourceTree = "<group>"; };
 		D861417422D284BC008CF711 /* LevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelGenerator.swift; sourceTree = "<group>"; };
 		D861417622D2B19B008CF711 /* HexagonDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonDrawer.swift; sourceTree = "<group>"; };
+		D881CEE4233470BA006AE432 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D89A8F0F22DF6ADD008E9C83 /* GKRandomSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKRandomSource.swift; sourceTree = "<group>"; };
 		D89A8F1222DF6B72008E9C83 /* LevelStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelStructs.swift; sourceTree = "<group>"; };
 		D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelConstants.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		D861412A22D228F9008CF711 = {
 			isa = PBXGroup;
 			children = (
+				D881CEE4233470BA006AE432 /* .swiftlint.yml */,
 				D861413522D228F9008CF711 /* hexagame */,
 				D861415022D228FD008CF711 /* hexagameTests */,
 				D861415B22D228FD008CF711 /* hexagameUITests */,
@@ -296,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D881CEE5233470BA006AE432 /* .swiftlint.yml in Resources */,
 				D861414222D228F9008CF711 /* Main.storyboard in Resources */,
 				D861414422D228FD008CF711 /* Assets.xcassets in Resources */,
 				D861414722D228FD008CF711 /* LaunchScreen.storyboard in Resources */,
