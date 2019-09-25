@@ -18,7 +18,6 @@
 		D861415D22D228FD008CF711 /* hexagameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861415C22D228FD008CF711 /* hexagameUITests.swift */; };
 		D861416B22D22B3D008CF711 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861416A22D22B3D008CF711 /* Hexagon.swift */; };
 		D861416D22D23C76008CF711 /* hexagonBase.png in Resources */ = {isa = PBXBuildFile; fileRef = D861416C22D23C75008CF711 /* hexagonBase.png */; };
-		D861416F22D27791008CF711 /* HexagonSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861416E22D27791008CF711 /* HexagonSide.swift */; };
 		D861417122D277B4008CF711 /* HexagonStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417022D277B4008CF711 /* HexagonStructs.swift */; };
 		D861417322D2788E008CF711 /* HexagonLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417222D2788E008CF711 /* HexagonLevel.swift */; };
 		D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861417422D284BC008CF711 /* LevelGenerator.swift */; };
@@ -29,6 +28,8 @@
 		D89A8F1522DF6C4F008E9C83 /* LevelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */; };
 		D89A8F1722E00255008E9C83 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1622E00255008E9C83 /* HomeScene.swift */; };
 		D89A8F1C22E00955008E9C83 /* LoadingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A8F1B22E00955008E9C83 /* LoadingScene.swift */; };
+		D8F1BE06233BE5E000A6EA64 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BE05233BE5E000A6EA64 /* Triangle.swift */; };
+		D8F1BE08233BE5F500A6EA64 /* TriangleStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BE07233BE5F500A6EA64 /* TriangleStructs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +67,6 @@
 		D861415E22D228FD008CF711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D861416A22D22B3D008CF711 /* Hexagon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
 		D861416C22D23C75008CF711 /* hexagonBase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hexagonBase.png; sourceTree = SOURCE_ROOT; };
-		D861416E22D27791008CF711 /* HexagonSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonSide.swift; sourceTree = "<group>"; };
 		D861417022D277B4008CF711 /* HexagonStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonStructs.swift; sourceTree = "<group>"; };
 		D861417222D2788E008CF711 /* HexagonLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonLevel.swift; sourceTree = "<group>"; };
 		D861417422D284BC008CF711 /* LevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelGenerator.swift; sourceTree = "<group>"; };
@@ -77,6 +77,8 @@
 		D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelConstants.swift; sourceTree = "<group>"; };
 		D89A8F1622E00255008E9C83 /* HomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		D89A8F1B22E00955008E9C83 /* LoadingScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScene.swift; sourceTree = "<group>"; };
+		D8F1BE05233BE5E000A6EA64 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
+		D8F1BE07233BE5F500A6EA64 /* TriangleStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleStructs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +112,6 @@
 				D861417622D2B19B008CF711 /* HexagonDrawer.swift */,
 				D861417222D2788E008CF711 /* HexagonLevel.swift */,
 				D861417022D277B4008CF711 /* HexagonStructs.swift */,
-				D861416E22D27791008CF711 /* HexagonSide.swift */,
 				D861416A22D22B3D008CF711 /* Hexagon.swift */,
 				D83E274022D81D0400F1C8EE /* HexagonPlaceHolder.swift */,
 			);
@@ -141,19 +142,18 @@
 		D861413522D228F9008CF711 /* hexagame */ = {
 			isa = PBXGroup;
 			children = (
-				D89A8F0E22DF6A74008E9C83 /* Extensions */,
-				D89A8F1122DF6B54008E9C83 /* Level */,
+				D8F1BE04233BE5D300A6EA64 /* Triangle */,
 				D83E273F22D8164300F1C8EE /* Hexagon */,
+				D89A8F1122DF6B54008E9C83 /* Level */,
+				D887D15E233AB5F100DB1A41 /* Scenes */,
 				D861416C22D23C75008CF711 /* hexagonBase.png */,
 				D861413622D228F9008CF711 /* AppDelegate.swift */,
-				D861413C22D228F9008CF711 /* GameScene.swift */,
 				D861413E22D228F9008CF711 /* GameViewController.swift */,
 				D861414022D228F9008CF711 /* Main.storyboard */,
 				D861414322D228FD008CF711 /* Assets.xcassets */,
 				D861414522D228FD008CF711 /* LaunchScreen.storyboard */,
 				D861414822D228FD008CF711 /* Info.plist */,
-				D89A8F1622E00255008E9C83 /* HomeScene.swift */,
-				D89A8F1B22E00955008E9C83 /* LoadingScene.swift */,
+				D89A8F0E22DF6A74008E9C83 /* Extensions */,
 			);
 			path = hexagame;
 			sourceTree = "<group>";
@@ -176,6 +176,16 @@
 			path = hexagameUITests;
 			sourceTree = "<group>";
 		};
+		D887D15E233AB5F100DB1A41 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				D89A8F1622E00255008E9C83 /* HomeScene.swift */,
+				D89A8F1B22E00955008E9C83 /* LoadingScene.swift */,
+				D861413C22D228F9008CF711 /* GameScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		D89A8F0E22DF6A74008E9C83 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +202,15 @@
 				D89A8F1422DF6C4F008E9C83 /* LevelConstants.swift */,
 			);
 			path = Level;
+			sourceTree = "<group>";
+		};
+		D8F1BE04233BE5D300A6EA64 /* Triangle */ = {
+			isa = PBXGroup;
+			children = (
+				D8F1BE05233BE5E000A6EA64 /* Triangle.swift */,
+				D8F1BE07233BE5F500A6EA64 /* TriangleStructs.swift */,
+			);
+			path = Triangle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F1BE08233BE5F500A6EA64 /* TriangleStructs.swift in Sources */,
 				D861413D22D228F9008CF711 /* GameScene.swift in Sources */,
 				D861413F22D228F9008CF711 /* GameViewController.swift in Sources */,
 				D89A8F1022DF6ADD008E9C83 /* GKRandomSource.swift in Sources */,
@@ -357,12 +377,12 @@
 				D89A8F1522DF6C4F008E9C83 /* LevelConstants.swift in Sources */,
 				D89A8F1322DF6B72008E9C83 /* LevelStructs.swift in Sources */,
 				D83E274122D81D0400F1C8EE /* HexagonPlaceHolder.swift in Sources */,
-				D861416F22D27791008CF711 /* HexagonSide.swift in Sources */,
 				D89A8F1C22E00955008E9C83 /* LoadingScene.swift in Sources */,
 				D861413722D228F9008CF711 /* AppDelegate.swift in Sources */,
 				D861417122D277B4008CF711 /* HexagonStructs.swift in Sources */,
 				D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */,
 				D861417322D2788E008CF711 /* HexagonLevel.swift in Sources */,
+				D8F1BE06233BE5E000A6EA64 /* Triangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

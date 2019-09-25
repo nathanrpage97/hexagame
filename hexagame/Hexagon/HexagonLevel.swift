@@ -26,8 +26,8 @@ class HexagonLevel: SKSpriteNode {
     ///   - gridSize: size of hexagon grid (bounds rowMax, colMax)
     init(hexagons: [HexagonIndex: Hexagon], gridSize: (rows: Int, cols: Int)) {
         self.hexagons = hexagons
-        let levelWidth = CGFloat(gridSize.cols) * Hexagon.innerSize.width * 2 + Hexagon.hexagonSize.width/4 + 4
-        let levelHeight = CGFloat(gridSize.rows + 1) * Hexagon.innerSize.height/2 + 4
+        let levelWidth = CGFloat(gridSize.cols) * Hexagon.tilingSize.width * 2 + Hexagon.tilingSize.width/4 + 4
+        let levelHeight = CGFloat(gridSize.rows + 1) * Hexagon.tilingSize.height/2 + 4
         self.gridSize = gridSize
         super.init(texture: nil, color: .clear, size: CGSize(width: levelWidth, height: levelHeight) )
         self.anchorPoint = CGPoint(x: 0, y: 0)
@@ -61,9 +61,9 @@ class HexagonLevel: SKSpriteNode {
     /// Switch hexagon connections
     ///
     /// - Parameters:
-    ///   - srcHexagon: hexagon 1 to switch colors
-    ///   - destinationHexagon: hexagon 2 to switch colors
-    func switchHexagons(srcHexagon: Hexagon, destinationHexagon: Hexagon) {
-        srcHexagon.switchColors(hexagon: destinationHexagon)
+    ///   - hexagon1: hexagon 1 to switch colors
+    ///   - hexagon2: hexagon 2 to switch colors
+    func switchHexagons(hexagon1: Hexagon, hexagon2: Hexagon) {
+        hexagon1.switchColors(other: hexagon2)
     }
 }

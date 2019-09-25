@@ -12,11 +12,13 @@ import GameplayKit
 class GameScene: SKScene {
 
     private var draggingHexagon: Hexagon?
+    private var selectedHexagon: Hexagon?
     private var draggingDelta = CGPoint.zero
     var hexagonLevel: HexagonLevel
     var oldCameraPosition = CGPoint.zero
     let pan = UIPanGestureRecognizer()
     let pinch = UIPinchGestureRecognizer()
+    let tap = UITapGestureRecognizer()
 
     init(size: CGSize, dificulty: Int, seed: UInt64) {
 
@@ -47,6 +49,9 @@ class GameScene: SKScene {
         pinch.addTarget(self, action: #selector(pinchAction(_:)))
         self.view?.addGestureRecognizer(pinch)
 
+        // add tap gesture recognizer
+        tap.addTarget(self, action: #selector(tapAction(_:)))
+        self.view?.addGestureRecognizer(tap)
         // constrain the camera
         setCameraConstraints()
 
@@ -124,7 +129,7 @@ class GameScene: SKScene {
                     }
                     draggingHexagon = hexagon
                     hexagon.startDragging()
-                    hexagonLevel.placeHolderHexagon.show(position: hexagon.gridPosition)
+                    hexagonLevel.placeHolderHexagon.show(position: hexagon.gridIndex.position)
                     return
                 }
             }
@@ -174,14 +179,14 @@ class GameScene: SKScene {
                 if let hexagon = node as? Hexagon {
                     if hexagon != draggingHexagon &&
                         hexagon.isTouching(location: self.convert(touchLocation, to: hexagon)) {
-                        hexagonLevel.switchHexagons(srcHexagon: draggingHexagon, destinationHexagon: hexagon)
+                        hexagonLevel.switchHexagons(hexagon1: draggingHexagon, hexagon2: hexagon)
                         found = true
                         break
                     }
                 }
             }
             draggingHexagon.stopDragging()
-            draggingHexagon.resetGridPosition()
+            draggingHexagon.resetPosition()
             hexagonLevel.placeHolderHexagon.hide()
             if found && hexagonLevel.isFinished {
                 run(SKAction.sequence([
@@ -222,6 +227,39 @@ class GameScene: SKScene {
 
             recognizer.scale = 1.0
             setCameraConstraints()
+        }
+    }
+
+    @objc func tapAction(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .ended {
+            let touchLocation = self.convertPoint(fromView: recognizer.location(in: recognizer.view))
+            let location = self.convert(touchLocation, to: hexagonLevel)
+            let touchedNodes = hexagonLevel.nodes(at: location)
+            for node in touchedNodes.reversed() {
+                if let hexagon = node as? Hexagon {
+                    if let selectedHexagon = selectedHexagon {
+                        if hexagon == selectedHexagon {
+                            hexagon.deselect()
+                            self.selectedHexagon = nil
+                        } else if hexagon.isTouching(location: self.convert(touchLocation, to: hexagon)) {
+                            hexagonLevel.switchHexagons(hexagon1: selectedHexagon, hexagon2: hexagon)
+                            selectedHexagon.deselect()
+                            self.selectedHexagon = nil
+                            break
+                        }
+                    } else {
+                        if !hexagon.isMovable || !hexagon.isTouching(location: self.convert(touchLocation, to: hexagon)) {
+                            continue
+                        }
+                        hexagon.select()
+                        self.selectedHexagon = hexagon
+                    }
+                }
+            }
+            if let selectedHexagon = self.selectedHexagon, touchedNodes.count == 0 {
+                selectedHexagon.deselect()
+                self.selectedHexagon = nil
+            }
         }
     }
     override func update(_ currentTime: TimeInterval) {

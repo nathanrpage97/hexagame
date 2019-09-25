@@ -11,7 +11,7 @@ import SpriteKit
 class HexagonPlaceHolder: SKSpriteNode {
     /// Create the hexagon placeholder
     init() {
-        super.init(texture: SKTexture(imageNamed: "hexagonBase"), color: UIColor.clear, size: Hexagon.hexagonSize)
+        super.init(texture: SKTexture(imageNamed: "hexagonBase"), color: UIColor.clear, size: Hexagon.outerSize)
         self.zPosition = 0
         self.isHidden = true
         self.alpha = 0.6

@@ -32,7 +32,7 @@ class LevelGenerator {
         scrambleLevel(level: level)
 
         for hexagon in level.hexagons.values {
-            hexagon.draw(recurse: false)
+            hexagon.draw(neighbors: false)
         }
         return level
     }
@@ -77,7 +77,7 @@ class LevelGenerator {
             hexagons[newHexagonIndex] = newHexagon
 
             // add neighbors to search space if not already added
-            for direction in HexagonDirection.allCases {
+            for direction in TriangleDirection.allCases {
                 let newNeighbor = newHexagon.gridIndex.getNeighborIndex(direction: direction)
                 if !availableHexagonIndecies.contains(newNeighbor) {
                     availableHexagonIndecies.append(newNeighbor)
@@ -101,17 +101,15 @@ class LevelGenerator {
         for (hexagonIndex, hexagon) in hexagons {
             let newIndex = HexagonIndex(row: hexagonIndex.row - minTop, col: hexagonIndex.col - minLeft)
             hexagon.gridIndex = newIndex
-            hexagon.resetGridPosition()
+            hexagon.resetPosition()
             simplifiedHexagons[newIndex] = hexagon
         }
 
         // bind neighbors together
         for hexagon in simplifiedHexagons.values {
-            hexagon.sides.forEach({side in
-                side.bindNeighbors(
-                    parentHexagon: hexagon,
-                    otherHexagon: simplifiedHexagons[hexagon.gridIndex.getNeighborIndex(direction: side.direction)]
-                )
+            hexagon.triangles.forEach({triangle in
+                let neighbor = simplifiedHexagons[hexagon.gridIndex.getNeighborIndex(direction: triangle.direction)]
+                triangle.bindNeighbor(with: neighbor)
             })
         }
         // create the hexagon level
@@ -133,14 +131,11 @@ class LevelGenerator {
             guard let hexagon = level.getHexagon(index: keys[self.rng.nextInt(upperBound: keys.count)]) else {
                 continue
             }
-            let direction = HexagonDirection(rawValue: self.rng.nextInt(upperBound: 6)) ?? HexagonDirection.north
-            if hexagon.getSide(direction: direction).createConnection(
-                connectionColor: HexagonSideColor(
-                    rawValue: self.rng.nextInt(upperBound: description.colors) + 1) ?? HexagonSideColor.blue
-                ) {
+            let direction = TriangleDirection(rawValue: self.rng.nextInt(upperBound: 6)) ?? .north
+            let color = TriangleColor(rawValue: self.rng.nextInt(upperBound: description.colors) + 1) ?? .blue
+            if hexagon.getTriangle(direction: direction).createConnection(color: color) {
                 colorConnectionsCreated += 1
             }
-
         }
     }
 
@@ -166,7 +161,7 @@ class LevelGenerator {
                     continue
                 }
                 // switch the colors of the sides
-                hexagon.switchColors(hexagon: newHexagon, redraw: false)
+                hexagon.switchColors(other: newHexagon, redraw: false)
             }
         }
     }
