@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9DA1115325737BF3003D2C8D /* drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA1115225737BF3003D2C8D /* drawer.swift */; };
 		D83E274122D81D0400F1C8EE /* HexagonPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E274022D81D0400F1C8EE /* HexagonPlaceHolder.swift */; };
 		D861413722D228F9008CF711 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413622D228F9008CF711 /* AppDelegate.swift */; };
 		D861413D22D228F9008CF711 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861413C22D228F9008CF711 /* GameScene.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9DA1115225737BF3003D2C8D /* drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drawer.swift; sourceTree = "<group>"; };
 		9DD7DC5D23DFF98200407EBF /* hexagame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = hexagame.entitlements; sourceTree = "<group>"; };
 		D83E274022D81D0400F1C8EE /* HexagonPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonPlaceHolder.swift; sourceTree = "<group>"; };
 		D861413322D228F9008CF711 /* hexagame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hexagame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +158,7 @@
 				D861414522D228FD008CF711 /* LaunchScreen.storyboard */,
 				D861414822D228FD008CF711 /* Info.plist */,
 				D89A8F0E22DF6A74008E9C83 /* Extensions */,
+				9DA1115225737BF3003D2C8D /* drawer.swift */,
 			);
 			path = hexagame;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				D89A8F1C22E00955008E9C83 /* LoadingScene.swift in Sources */,
 				D861413722D228F9008CF711 /* AppDelegate.swift in Sources */,
 				D861417122D277B4008CF711 /* HexagonStructs.swift in Sources */,
+				9DA1115325737BF3003D2C8D /* drawer.swift in Sources */,
 				D861417522D284BC008CF711 /* LevelGenerator.swift in Sources */,
 				D861417322D2788E008CF711 /* HexagonLevel.swift in Sources */,
 				D8F1BE06233BE5E000A6EA64 /* Triangle.swift in Sources */,

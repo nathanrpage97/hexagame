@@ -14,16 +14,20 @@ class GameScene: SKScene {
     private var draggingHexagon: Hexagon?
     private var selectedHexagon: Hexagon?
     private var draggingDelta = CGPoint.zero
+    
+    let exitButton: SKSpriteNode
     var hexagonLevel: HexagonLevel
     var oldCameraPosition = CGPoint.zero
     let pan = UIPanGestureRecognizer()
     let pinch = UIPinchGestureRecognizer()
     let tap = UITapGestureRecognizer()
+    let longTap = UILongPressGestureRecognizer()
 
     init(size: CGSize, dificulty: Int, seed: UInt64) {
 
         self.hexagonLevel = LevelGenerator.create(seed: seed, dificulty: dificulty)
-
+        self.exitButton = SKSpriteNode()
+        
         super.init(size: size)
         self.backgroundColor = UIColor.init(red: 223/255.0, green: 227/255.0, blue: 224/255.0, alpha: 1)
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -32,6 +36,14 @@ class GameScene: SKScene {
         cameraNode.position = CGPoint(x: 0, y: 0)
         self.addChild(cameraNode)
         self.camera = cameraNode
+        
+        cameraNode.zPosition = 1000
+        
+        self.exitButton.size = CGSize(width: 4*vw, height: 4*vw)
+        self.exitButton.position = CGPoint(x: -46*vw, y: 50*vh - 4*vw)
+        self.exitButton.addChild(SKSpriteNode(texture: SKTexture(cgImage: drawExitButton(scale: 1.0)), size: CGSize(width: 2*vw, height: 2*vw)))
+        self.camera?.addChild(self.exitButton)
+
         self.addChild(hexagonLevel)
     }
 
@@ -42,16 +54,19 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         // add pan gesture handler
         pan.addTarget(self, action: #selector(panAction(_:)))
-        self.view?.addGestureRecognizer(pan)
+        view.addGestureRecognizer(pan)
         pan.maximumNumberOfTouches = 1
 
         // add pinch gesture handler
         pinch.addTarget(self, action: #selector(pinchAction(_:)))
-        self.view?.addGestureRecognizer(pinch)
+        view.addGestureRecognizer(pinch)
 
         // add tap gesture recognizer
         tap.addTarget(self, action: #selector(tapAction(_:)))
-        self.view?.addGestureRecognizer(tap)
+        view.addGestureRecognizer(tap)
+
+        longTap.addTarget(self, action: #selector(longTapAction(_:)))
+        view.addGestureRecognizer(longTap)
         // constrain the camera
         setCameraConstraints()
 
@@ -64,6 +79,13 @@ class GameScene: SKScene {
         )
         camera.xScale = initScale
         camera.yScale = initScale
+    }
+    
+    override func willMove(from view: SKView) {
+        view.removeGestureRecognizer(pinch)
+        view.removeGestureRecognizer(pan)
+        view.removeGestureRecognizer(tap)
+        view.removeGestureRecognizer(longTap)
     }
 
     func setCameraConstraints() {
@@ -189,22 +211,26 @@ class GameScene: SKScene {
             draggingHexagon.resetPosition()
             hexagonLevel.placeHolderHexagon.hide()
             if found && hexagonLevel.isFinished {
-                run(SKAction.sequence([
-                    SKAction.run { [weak self] in
-                        // 5
-                        print("Go back to home scene")
-                        guard let `self` = self else { return }
-                        let reveal = SKTransition.fade(with: self.backgroundColor, duration: 1)
-                        let scene = HomeScene(size: self.size)
-                        self.view?.presentScene(scene, transition: reveal)
-                    }
-                ]))
+                returnToHomeScreen()
             }
 
             self.draggingHexagon = nil
         }
     }
 
+    func returnToHomeScreen() {
+        run(SKAction.sequence([
+            SKAction.run { [weak self] in
+                // 5
+                print("Go back to home scene")
+                guard let `self` = self else { return }
+                let reveal = SKTransition.fade(with: self.backgroundColor, duration: 1)
+                let scene = HomeScene(size: self.size)
+                self.view?.presentScene(scene, transition: reveal)
+            }
+        ]))
+    }
+    
     @objc func pinchAction(_ recognizer: UIPinchGestureRecognizer) {
         if recognizer.state == .changed {
             guard let camera = self.camera else {
@@ -262,6 +288,25 @@ class GameScene: SKScene {
             }
         }
     }
+
+    @objc func longTapAction(_ recognizer: UITapGestureRecognizer) {
+        print("long tap")
+        if recognizer.state != .ended {
+            return
+        }
+        guard let camera = camera else {
+            return
+        }
+        let touchLocation = self.convertPoint(fromView: recognizer.location(in: recognizer.view))
+        let location = self.convert(touchLocation, to: camera)
+        let touchedNodes = camera.nodes(at: location)
+        
+        print(touchedNodes)
+        for node in touchedNodes where node == self.exitButton {
+            returnToHomeScreen()
+        }
+    }
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         guard let camera = self.camera else {
