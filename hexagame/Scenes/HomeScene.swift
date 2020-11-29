@@ -25,7 +25,7 @@ extension SKScene {
 }
 
 class HomeScene: SKScene {
-    var dificulty = Int.random(in: 9...9)
+    var dificulty = Int.random(in: 3...4)
     var level: UInt64 = UInt64.random(in: 1...1234)
     let tap = UITapGestureRecognizer()
     var dificultyText: SKLabelNode

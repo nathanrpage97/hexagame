@@ -50,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9DD7DC5D23DFF98200407EBF /* hexagame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = hexagame.entitlements; sourceTree = "<group>"; };
 		D83E274022D81D0400F1C8EE /* HexagonPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonPlaceHolder.swift; sourceTree = "<group>"; };
 		D861413322D228F9008CF711 /* hexagame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hexagame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D861413622D228F9008CF711 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +143,7 @@
 		D861413522D228F9008CF711 /* hexagame */ = {
 			isa = PBXGroup;
 			children = (
+				9DD7DC5D23DFF98200407EBF /* hexagame.entitlements */,
 				D8F1BE04233BE5D300A6EA64 /* Triangle */,
 				D83E273F22D8164300F1C8EE /* Hexagon */,
 				D89A8F1122DF6B54008E9C83 /* Level */,
@@ -557,8 +559,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = hexagame/hexagame.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = WBL5C3Q9DS;
 				INFOPLIST_FILE = hexagame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -569,6 +573,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -578,8 +583,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = hexagame/hexagame.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = WBL5C3Q9DS;
 				INFOPLIST_FILE = hexagame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -590,6 +597,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nathan.hexagame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
