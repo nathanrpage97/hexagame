@@ -14,20 +14,23 @@ class GameScene: SKScene {
     private var draggingHexagon: Hexagon?
     private var selectedHexagon: Hexagon?
     private var draggingDelta = CGPoint.zero
-    
-    let exitButton: SKSpriteNode
+
+    let exitButton = SKSpriteNode()
     var hexagonLevel: HexagonLevel
     var oldCameraPosition = CGPoint.zero
     let pan = UIPanGestureRecognizer()
     let pinch = UIPinchGestureRecognizer()
     let tap = UITapGestureRecognizer()
     let longTap = UILongPressGestureRecognizer()
+    let dificulty: Int
+    let seed: UInt64
 
     init(size: CGSize, dificulty: Int, seed: UInt64) {
 
         self.hexagonLevel = LevelGenerator.create(seed: seed, dificulty: dificulty)
-        self.exitButton = SKSpriteNode()
-        
+        self.dificulty = dificulty
+        self.seed = seed
+
         super.init(size: size)
         self.backgroundColor = UIColor.init(red: 223/255.0, green: 227/255.0, blue: 224/255.0, alpha: 1)
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -36,12 +39,14 @@ class GameScene: SKScene {
         cameraNode.position = CGPoint(x: 0, y: 0)
         self.addChild(cameraNode)
         self.camera = cameraNode
-        
+
         cameraNode.zPosition = 1000
-        
+
         self.exitButton.size = CGSize(width: 4*vw, height: 4*vw)
         self.exitButton.position = CGPoint(x: -46*vw, y: 50*vh - 4*vw)
-        self.exitButton.addChild(SKSpriteNode(texture: SKTexture(cgImage: drawExitButton(scale: 1.0)), size: CGSize(width: 2*vw, height: 2*vw)))
+        self.exitButton.addChild(
+            SKSpriteNode(texture: SKTexture(cgImage: drawExitButton(scale: 1.0)), size: CGSize(width: 2*vw, height: 2*vw))
+        )
         self.camera?.addChild(self.exitButton)
 
         self.addChild(hexagonLevel)
@@ -80,7 +85,7 @@ class GameScene: SKScene {
         camera.xScale = initScale
         camera.yScale = initScale
     }
-    
+
     override func willMove(from view: SKView) {
         view.removeGestureRecognizer(pinch)
         view.removeGestureRecognizer(pan)
@@ -197,6 +202,7 @@ class GameScene: SKScene {
             let location = self.convert(touchLocation, to: hexagonLevel)
             let touchedNodes = hexagonLevel.nodes(at: location)
             var found = false
+
             for node in touchedNodes.reversed() {
                 if let hexagon = node as? Hexagon {
                     if hexagon != draggingHexagon &&
@@ -211,7 +217,7 @@ class GameScene: SKScene {
             draggingHexagon.resetPosition()
             hexagonLevel.placeHolderHexagon.hide()
             if found && hexagonLevel.isFinished {
-                returnToHomeScreen()
+                goToNextLevel()
             }
 
             self.draggingHexagon = nil
@@ -221,8 +227,6 @@ class GameScene: SKScene {
     func returnToHomeScreen() {
         run(SKAction.sequence([
             SKAction.run { [weak self] in
-                // 5
-                print("Go back to home scene")
                 guard let `self` = self else { return }
                 let reveal = SKTransition.fade(with: self.backgroundColor, duration: 1)
                 let scene = HomeScene(size: self.size)
@@ -230,7 +234,18 @@ class GameScene: SKScene {
             }
         ]))
     }
-    
+
+    func goToNextLevel() {
+        run(SKAction.sequence([
+            SKAction.run { [weak self] in
+                guard let `self` = self else { return }
+                let reveal = SKTransition.fade(with: self.backgroundColor, duration: 1)
+                let scene = GameScene(size: self.size, dificulty: self.dificulty, seed: self.seed + 1)
+                self.view?.presentScene(scene, transition: reveal)
+            }
+        ]))
+    }
+
     @objc func pinchAction(_ recognizer: UIPinchGestureRecognizer) {
         if recognizer.state == .changed {
             guard let camera = self.camera else {
@@ -300,7 +315,7 @@ class GameScene: SKScene {
         let touchLocation = self.convertPoint(fromView: recognizer.location(in: recognizer.view))
         let location = self.convert(touchLocation, to: camera)
         let touchedNodes = camera.nodes(at: location)
-        
+
         print(touchedNodes)
         for node in touchedNodes where node == self.exitButton {
             returnToHomeScreen()

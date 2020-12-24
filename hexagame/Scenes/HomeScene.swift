@@ -35,11 +35,8 @@ class HomeScene: SKScene {
     var difficultyRegion = SKSpriteNode()
     var levelText: SKLabelNode
     var levelNumber: SKLabelNode
-    let levelIncrement = SKSpriteNode()
-    let levelDecrement = SKSpriteNode()
     var levelRegion = SKSpriteNode()
     let playButton = SKSpriteNode()
-    
 
     override init(size: CGSize) {
         dificultyText = SKLabelNode(text: "Dificulty")
@@ -122,7 +119,7 @@ class HomeScene: SKScene {
         swipeDown.direction = .down
         view.addGestureRecognizer(swipeDown)
     }
-    
+
     override func willMove(from view: SKView) {
         view.removeGestureRecognizer(swipeUp)
         view.removeGestureRecognizer(swipeDown)
@@ -161,8 +158,7 @@ class HomeScene: SKScene {
             }
         }
     }
-    
-    
+
     @IBAction func swipeDownAction(_ recognizer: UISwipeGestureRecognizer) {
         // ignore left and right swipes
         let touchLocation = self.convertPoint(fromView: recognizer.location(in: self.view))
